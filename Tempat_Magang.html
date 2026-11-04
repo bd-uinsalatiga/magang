@@ -63,6 +63,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(140,18,32,.96);backdrop-fil
 .stat small{font-size:14.5px;color:var(--ink2);font-weight:600;display:block;margin-top:4px}
 
 section{padding:40px 0 10px}
+#sections,#panduan,section[id]{scroll-margin-top:74px}
 .sec-head{display:flex;align-items:center;gap:13px;margin-bottom:6px}
 .sec-ic{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-size:25px;flex:none}
 .sec-head h2{font-size:clamp(24px,3.2vw,31px);font-weight:800;color:var(--navy)}
@@ -447,19 +448,25 @@ const PEMINATAN_TA=[
 let activeCat='all';
 let prioOnly=false;
 const filtersEl=document.getElementById('filters');
+function scrollToResults(){const el=document.getElementById('sections');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
 [['all','Semua',C.slate],...CATS.map(c=>[c.id,c.name.split(' ').slice(0,2).join(' '),c.color])]
 .forEach(([id,label,col],i)=>{
   const b=document.createElement('button');b.className='fbtn'+(i===0?' active':'');b.textContent=label;b.dataset.col=col;b.dataset.id=id;
   if(i===0){b.style.background=col;b.style.borderColor=col;b.style.color='#fff';}
   b.onclick=()=>{activeCat=id;document.querySelectorAll('.fbtn[data-id]').forEach(x=>{x.classList.remove('active');x.style.background='';x.style.borderColor='';x.style.color='';});
-    b.classList.add('active');b.style.background=col;b.style.borderColor=col;b.style.color='#fff';applyFilter();};
+    b.classList.add('active');b.style.background=col;b.style.borderColor=col;b.style.color='#fff';applyFilter();scrollToResults();};
   filtersEl.appendChild(b);
 });
 // Priority toggle
 const pb=document.createElement('button');pb.className='fbtn prio-toggle';pb.innerHTML='★ Rekomendasi';
 pb.onclick=()=>{prioOnly=!prioOnly;pb.classList.toggle('active',prioOnly);
-  pb.style.background=prioOnly?'#fbbf24':'';pb.style.borderColor=prioOnly?'#fbbf24':'';pb.style.color=prioOnly?'#854d0e':'';applyFilter();};
+  pb.style.background=prioOnly?'#fbbf24':'';pb.style.borderColor=prioOnly?'#fbbf24':'';pb.style.color=prioOnly?'#854d0e':'';applyFilter();scrollToResults();};
 filtersEl.appendChild(pb);
+// Jump button: Divisi, Job Desk & Kaitan TA (Panduan section)
+const gd=document.createElement('button');gd.className='fbtn';gd.innerHTML='📚 Divisi & Job Desk';
+gd.style.borderColor='#f6cccc';gd.style.color='#d62828';
+gd.onclick=()=>{const el=document.getElementById('panduan');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});};
+filtersEl.appendChild(gd);
 
 function mitraCard(m){
   const cat=CATS.find(c=>c.id===m.cat);const col=cat.color;
