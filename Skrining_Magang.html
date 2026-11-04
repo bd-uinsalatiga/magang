@@ -43,7 +43,7 @@ nav{background:var(--navy)}
 .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);border:1px solid var(--line);padding:26px;margin:22px 0}
 .qcard{display:flex;flex-direction:column;min-height:380px}
 .qcard #qcontent{flex:1}
-.nav-btns{margin-top:auto!important}
+.nav-btns{margin-top:auto!important;padding-top:22px;border-top:1px solid var(--line)}
 
 /* progress */
 .progress-wrap{position:sticky;top:0;z-index:30;background:rgba(238,242,249,.96);backdrop-filter:blur(8px);padding:12px 0;border-bottom:1px solid var(--line)}
@@ -227,19 +227,22 @@ footer{background:var(--navy);color:#f2c2aa;text-align:center;padding:22px;font-
 @media print{
   /* force browsers to print background colors & gradients exactly like on screen */
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
-  @page{margin:10mm}
-  nav,.progress-wrap,.actions,.nav-btns,.hero,footer{display:none!important}
-  body{background:#fff}
-  .card{box-shadow:none!important;border:1px solid #d8e0ec!important;break-inside:avoid;margin:0!important}
-  .konsen-card,.bar-fill,.job,.mrec,.gap-card,.stage-badge,.match-badge,.result-hero .stage-badge{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-  .section-title{break-after:avoid}
-  .bar-row,.job,.mrec,.gap-card{break-inside:avoid}
+  @page{size:A4;margin:12mm}
+  html,body{background:#fff!important}
+  nav,.progress-wrap,.actions,.nav-btns,.hero,footer,.backbar,.no-print{display:none!important}
+  .wrap{max-width:100%!important;margin:0!important;padding:0!important}
+  /* the whole result is ONE tall card: let it flow across pages instead of being pushed to a blank page */
+  .card{box-shadow:none!important;border:0!important;margin:0!important;padding:0!important;break-inside:auto}
+  /* keep each block intact so info is never cut mid-element */
+  .result-hero,.konsen-card,.gap-card,.bar-row,.job,.mrec{break-inside:avoid}
+  .section-title{break-after:avoid;break-inside:avoid}
+  .disclaimer{break-inside:avoid}
 }
 </style>
 </head>
 <body>
 
-<div style="background:#fff;border-bottom:1px solid #e4e9f0">
+<div class="backbar" style="background:#fff;border-bottom:1px solid #e4e9f0">
   <div style="max-width:880px;margin:0 auto;padding:11px 20px">
     <a href="https://febi.uinsalatiga.ac.id/bd/magang/" style="display:inline-flex;align-items:center;gap:7px;color:#d62828;font-weight:700;font-size:15.5px;text-decoration:none;font-family:'Outfit',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Arial,sans-serif">← Kembali ke Pusat Magang</a>
   </div>
@@ -285,6 +288,7 @@ footer{background:var(--navy);color:#f2c2aa;text-align:center;padding:22px;font-
     <div class="form-row"><label>Nama (opsional, untuk personalisasi hasil)</label><input id="uname" type="text" placeholder="Nama kamu…"></div>
     <div class="form-row"><label>Semester saat ini</label>
       <select id="usem"><option value="">Pilih…</option><option>Semester 1–2</option><option>Semester 3–4</option><option>Semester 5–6</option><option>Semester 7–8</option></select></div>
+    <div class="skill-note" style="margin:0 0 16px"><span>💾</span><div><b>Hasilmu tidak disimpan.</b> Asesmen ini berjalan sepenuhnya di perangkatmu, tidak ada jawaban atau hasil yang dikirim atau disimpan ke server maupun basis data. Karena itu, pastikan kamu <b>mencetak atau menyimpan hasil (PDF)</b> di akhir bila ingin menyimpannya.</div></div>
     <button class="btn btn-big" onclick="startAssessment()">Mulai Asesmen →</button>
     <div class="disclaimer" style="margin-top:18px"><b>Catatan:</b> Hasil bersifat indikatif untuk membantu eksplorasi diri, bukan vonis. Minat &amp; kemampuan bisa tumbuh; gunakan hasil ini sebagai titik awal diskusi dengan dosen pembimbing dalam memilih peminatan TA &amp; mitra magang.</div>
   </div>
@@ -604,7 +608,9 @@ function showResults(){
 
       <div class="disclaimer"><b>Ingat:</b> hasil ini indikatif untuk membantumu mengeksplorasi diri, bukan batasan. Kamu tetap bisa mencoba peminatan lain. Diskusikan dengan dosen pembimbing untuk memvalidasi peminatan TA & memilih mitra. Daftar mitra lengkap ada di direktori magang prodi.</div>
 
-      <div class="actions">
+      <div class="disclaimer no-print" style="background:#fdecec;border-color:#f6cccc;color:#a61c1c"><b>📄 Simpan hasilmu sekarang.</b> Hasil ini tidak tersimpan otomatis di mana pun, begitu halaman ditutup atau di-refresh, hasil akan hilang. Klik <b>Simpan / Cetak hasil</b> di bawah, lalu pilih <b>Save as PDF</b> untuk menyimpannya.</div>
+
+      <div class="actions no-print">
         <button class="btn btn-out" onclick="window.print()">🖨️ Simpan / Cetak hasil</button>
         <button class="btn btn-next" style="margin:0" onclick="restart()">🔄 Ulangi asesmen</button>
       </div>
