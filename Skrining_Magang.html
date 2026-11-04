@@ -233,10 +233,9 @@ footer{background:var(--navy);color:#f2c2aa;text-align:center;padding:22px;font-
   .wrap{max-width:100%!important;margin:0!important;padding:0!important}
   /* the whole result is ONE tall card: let it flow across pages instead of being pushed to a blank page */
   .card{box-shadow:none!important;border:0!important;margin:0!important;padding:0!important;break-inside:auto}
-  /* keep each block intact so info is never cut mid-element */
-  .result-hero,.konsen-card,.gap-card,.bar-row,.job,.mrec{break-inside:avoid}
+  /* judul + datanya selalu menyatu, satu bagian tidak pernah terbelah antar halaman */
+  .rblock,.result-hero,.konsen-card,.gap-card,.bar-row,.job,.mrec,.disclaimer{break-inside:avoid}
   .section-title{break-after:avoid;break-inside:avoid}
-  .disclaimer{break-inside:avoid}
 }
 </style>
 </head>
@@ -576,34 +575,44 @@ function showResults(){
         <span class="pl-link" style="margin-left:6px">📘 ${J.ta}</span>
       </div>
 
-      <div class="section-title">📊 Tingkat kecocokan 3 peminatan</div>
-      <div class="bars">
-        ${R.ranked.map(([k,v])=>`<div class="bar-row"><div class="bl"><span>${JALUR[k].name}</span><span class="pct">${v}%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-w="${v}" style="background:${JALUR[k].color}"></div></div></div>`).join('')}
+      <div class="rblock">
+        <div class="section-title">📊 Tingkat kecocokan 3 peminatan</div>
+        <div class="bars">
+          ${R.ranked.map(([k,v])=>`<div class="bar-row"><div class="bl"><span>${JALUR[k].name}</span><span class="pct">${v}%</span></div>
+            <div class="bar-track"><div class="bar-fill" data-w="${v}" style="background:${JALUR[k].color}"></div></div></div>`).join('')}
+        </div>
       </div>
 
-      <div class="section-title">💪 Peta kemampuan per peminatan (hasil uji skill)</div>
-      <div class="bars">
-        ${Object.keys(JALUR).map(k=>`<div class="bar-row"><div class="bl"><span>${JALUR[k].name}</span><span class="pct">${R.skillByJ[k]}/${R.skillCntByJ[k]} benar · ${R.skillPct[k]}%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-w="${R.skillPct[k]}" style="background:${JALUR[k].color}"></div></div></div>`).join('')}
+      <div class="rblock">
+        <div class="section-title">💪 Peta kemampuan per peminatan (hasil uji skill)</div>
+        <div class="bars">
+          ${Object.keys(JALUR).map(k=>`<div class="bar-row"><div class="bl"><span>${JALUR[k].name}</span><span class="pct">${R.skillByJ[k]}/${R.skillCntByJ[k]} benar · ${R.skillPct[k]}%</span></div>
+            <div class="bar-track"><div class="bar-fill" data-w="${R.skillPct[k]}" style="background:${JALUR[k].color}"></div></div></div>`).join('')}
+        </div>
       </div>
 
-      <div class="section-title">🧭 Profil minat (RIASEC)</div>
-      <div class="bars">
-        ${Object.entries(R.riaPct).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="bar-row"><div class="bl"><span>${RIASEC_NAMES[k]}</span><span class="pct">${v}%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-w="${v}" style="background:var(--navy2)"></div></div></div>`).join('')}
+      <div class="rblock">
+        <div class="section-title">🧭 Profil minat (RIASEC)</div>
+        <div class="bars">
+          ${Object.entries(R.riaPct).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="bar-row"><div class="bl"><span>${RIASEC_NAMES[k]}</span><span class="pct">${v}%</span></div>
+            <div class="bar-track"><div class="bar-fill" data-w="${v}" style="background:var(--navy2)"></div></div></div>`).join('')}
+        </div>
       </div>
 
       ${gapHtml}
 
-      <div class="section-title">💼 Pekerjaan yang bisa kamu lakukan saat magang</div>
-      <div class="jobs">
-        ${J.jobs.map(j=>`<div class="job" style="--jc:${jc}"><div class="ji">${j[0]}</div><div><h4>${j[1]}</h4><p>${j[2]}</p></div></div>`).join('')}
+      <div class="rblock">
+        <div class="section-title">💼 Pekerjaan yang bisa kamu lakukan saat magang</div>
+        <div class="jobs">
+          ${J.jobs.map(j=>`<div class="job" style="--jc:${jc}"><div class="ji">${j[0]}</div><div><h4>${j[1]}</h4><p>${j[2]}</p></div></div>`).join('')}
+        </div>
       </div>
 
-      <div class="section-title">🏢 Mitra magang yang cocok untukmu</div>
-      <div class="mitra-rec">
-        ${mrec.map(m=>`<div class="mrec" style="--mc:${jc}"><div class="mi">${m[0]}</div><div><h4>${m[1]}</h4><p>${m[2]}</p></div><span class="tag">${m[3]}</span></div>`).join('')}
+      <div class="rblock">
+        <div class="section-title">🏢 Mitra magang yang cocok untukmu</div>
+        <div class="mitra-rec">
+          ${mrec.map(m=>`<div class="mrec" style="--mc:${jc}"><div class="mi">${m[0]}</div><div><h4>${m[1]}</h4><p>${m[2]}</p></div><span class="tag">${m[3]}</span></div>`).join('')}
+        </div>
       </div>
 
       <div class="disclaimer"><b>Ingat:</b> hasil ini indikatif untuk membantumu mengeksplorasi diri, bukan batasan. Kamu tetap bisa mencoba peminatan lain. Diskusikan dengan dosen pembimbing untuk memvalidasi peminatan TA & memilih mitra. Daftar mitra lengkap ada di direktori magang prodi.</div>
