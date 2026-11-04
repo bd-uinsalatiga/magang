@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rekomendasi Tempat Magang di Sekitar UIN Salatiga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#b45309;--green:#00304a;--purple:#d62828;--orange:#f77f00;--teal:#9a1f1f;--pink:#d62828;--slate:#00304a;
+  --navy:#00304a;--navy2:#0b4a6e;--yellow:#f6b900;
+  --ink:#263544;--ink2:#5b6b7a;--ink3:#9aa7b2;
+  --bg:#f6f8fb;--card:#fff;--line:#e4e9f0;
+  --shadow:0 4px 20px rgba(15,42,82,.07);--shadow-h:0 14px 38px rgba(15,42,82,.13);
+  --r:16px;--font:'Outfit',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+
+nav{position:sticky;top:0;z-index:60;background:rgba(140,18,32,.96);backdrop-filter:blur(10px)}
+.nav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:12px 22px}
+.logo{display:flex;align-items:center;gap:11px;color:#fff}
+.logo .crest{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--yellow),#f77f00);display:grid;place-items:center;color:var(--navy);font-weight:800;font-size:15.5px;flex:none}
+.logo b{font-size:16px;font-weight:700;line-height:1.15}
+.logo span{display:block;font-size:12px;font-weight:500;color:#f2bda3;letter-spacing:1px}
+.nav-links{display:flex;gap:2px;margin-left:auto;flex-wrap:wrap}
+.nav-links a{color:#f7cdb4;font-size:14.5px;font-weight:600;padding:7px 10px;border-radius:8px;transition:.18s}
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,.1)}
+.burger{display:none;margin-left:auto;background:rgba(255,255,255,.12);border:0;color:#fff;width:40px;height:36px;border-radius:9px;font-size:23px;cursor:pointer}
+
+.hero{position:relative;background:var(--card);color:var(--navy);border-bottom:1px solid var(--line);overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(0,48,74,.05) 1px,transparent 1px);background-size:20px 20px;opacity:.5}
+.hero-in{padding:48px 0 38px;position:relative;z-index:2}
+.hero .tag{display:inline-block;font-size:14.5px;font-weight:600;letter-spacing:1px;color:#d62828;background:#fdecec;margin-bottom:15px;border:1px solid #f6cccc;padding:5px 13px;border-radius:30px}
+.hero h1{font-size:clamp(31px,4.6vw,48px);font-weight:800;line-height:1.12;letter-spacing:-.5px;max-width:780px}
+.hero h1 .y{color:var(--orange)}
+.hero p{margin-top:16px;color:var(--ink2);font-size:19px;max-width:620px}
+
+/* CONTROLS BAR (sticky filter) */
+.controls{position:sticky;top:0;z-index:55;background:rgba(238,242,249,.96);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);padding:12px 0}
+.controls-in{max-width:1180px;margin:0 auto;padding:0 22px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.search{flex:1;min-width:200px;position:relative}
+.search input{width:100%;padding:10px 14px 10px 38px;border:1px solid var(--line);border-radius:10px;font-family:var(--font);
+  font-size:17px;background:#fff;color:var(--ink)}
+.search input:focus{outline:none;border-color:var(--blue)}
+.search svg{position:absolute;left:12px;top:11px;width:18px;height:18px;stroke:var(--ink3)}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.fbtn{background:#fff;border:1px solid var(--line);color:var(--ink2);padding:8px 14px;border-radius:30px;font-size:15px;
+  font-weight:700;cursor:pointer;transition:.16s;white-space:nowrap}
+.fbtn:hover{border-color:var(--ink3)}
+.fbtn.active{color:#fff}
+
+.stats{margin-top:22px}
+.stat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 16px;box-shadow:var(--shadow)}
+.stat b{font-size:29px;font-weight:800;color:var(--navy);display:block;line-height:1}
+.stat small{font-size:14.5px;color:var(--ink2);font-weight:600;display:block;margin-top:4px}
+
+section{padding:40px 0 10px}
+.sec-head{display:flex;align-items:center;gap:13px;margin-bottom:6px}
+.sec-ic{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-size:25px;flex:none}
+.sec-head h2{font-size:clamp(24px,3.2vw,31px);font-weight:800;color:var(--navy)}
+.sec-head .cnt{font-size:14.5px;font-weight:700;color:var(--ink3);background:#fff;border:1px solid var(--line);padding:3px 10px;border-radius:20px;margin-left:auto}
+.sec-desc{color:var(--ink2);font-size:19px;margin:0 0 20px 55px;max-width:760px}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.mitra{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);border:1px solid var(--line);
+  border-top:4px solid var(--mc);overflow:hidden;transition:.2s;display:flex;flex-direction:column}
+.mitra:hover{transform:translateY(-4px);box-shadow:var(--shadow-h)}
+.mitra .mh{padding:17px 19px 0;display:flex;gap:13px;align-items:flex-start}
+.mitra .mlogo{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;font-weight:800;font-size:20.5px;color:#fff;flex:none;background:var(--mc)}
+.mitra .mt{flex:1}
+.mitra .mt h3{font-size:21.5px;font-weight:700;line-height:1.2}
+.mitra .mt .loc{font-size:15px;color:var(--ink3);font-weight:600;margin-top:2px;display:flex;align-items:center;gap:5px}
+.mitra .fmt{font-size:12px;font-weight:800;padding:3px 9px;border-radius:20px;letter-spacing:.3px;flex:none}
+.fmt-off{background:#e6eef3;color:#00304a}.fmt-on{background:#ffe8cc;color:#b35a00}.fmt-hy{background:#fde0e0;color:#a61c1c}
+.mitra .mbody{padding:14px 19px 0}
+.mitra.is-prio{border-top-width:4px;box-shadow:0 6px 24px rgba(202,138,4,.14)}
+.mitra.is-prio .mlogo{box-shadow:0 0 0 3px #fde68a}
+.prio-wrap{padding:11px 19px 0}
+.prio-badge{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:800;letter-spacing:.3px;
+  padding:4px 11px;border-radius:20px}
+.prio-1{background:linear-gradient(135deg,#fcbf49,#f6a600);color:#5c3a00}
+.prio-2{background:#fde0e0;color:#a61c1c}
+.srclink{font-size:14.5px;font-weight:700;color:var(--mc);border-bottom:1px solid transparent}
+.srclink:hover{border-bottom-color:var(--mc)}
+.mitra .mdesc{font-size:18.5px;color:var(--ink2);margin-bottom:13px}
+.mitra .row{display:flex;gap:8px;font-size:17.5px;margin-bottom:8px;align-items:flex-start}
+.mitra .row .k{color:var(--ink3);font-weight:700;flex:none;width:74px;display:flex;align-items:center;gap:5px}
+.mitra .row .v{color:var(--ink);font-weight:500}
+.mitra .row .v a{color:var(--mc);font-weight:600;border-bottom:1px solid transparent}
+.mitra .row .v a:hover{border-bottom-color:var(--mc)}
+.divs{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 0}
+.divtag{font-size:14.5px;font-weight:600;background:var(--bg);border:1px solid var(--line);padding:4px 9px;border-radius:7px;color:var(--ink)}
+.mfoot{margin-top:auto;padding:14px 19px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line)}
+.mfoot .corr{font-size:13px;font-weight:700;color:var(--ink3)}
+.tabchip{font-size:12.5px;font-weight:800;color:#fff;padding:3px 9px;border-radius:20px}
+.mou{margin-left:auto;font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:20px;display:flex;align-items:center;gap:4px}
+.mou-y{background:#dcfce7;color:#15803d}.mou-m{background:#fef9c3;color:#a16207}
+
+/* CORRELATION / DIVISI legend */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+.info-card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);border:1px solid var(--line);padding:22px}
+.info-card h3{font-size:21px;font-weight:800;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.corr-sub{font-size:14px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:var(--ink3);margin:14px 0 4px}
+.corr-sub:first-child{margin-top:0}
+.corr-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
+.corr-row:last-child{border-bottom:0}
+.corr-row .ml{width:30px;height:30px;border-radius:8px;color:#fff;font-weight:800;font-size:15.5px;display:grid;place-items:center;flex:none}
+.corr-row h4{font-size:17.5px;font-weight:700}
+.corr-row p{font-size:17.5px;color:var(--ink2)}
+.divrow{padding:11px 0;border-bottom:1px dashed var(--line)}
+.divrow:last-child{border-bottom:0}
+.divrow h4{font-size:17.5px;font-weight:700;color:var(--navy);margin-bottom:3px;display:flex;align-items:center;gap:7px}
+.divrow .dic{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font-size:15.5px;flex:none}
+.divrow p{font-size:17.5px;color:var(--ink2);padding-left:31px}
+
+.note{background:linear-gradient(135deg,#fef9e7,#fffdf5);border:1px solid #f5e6a8;border-radius:var(--r);padding:18px 22px;
+  margin-top:22px;font-size:18px;color:#854d0e}
+.note b{color:#713f12}
+
+.empty{text-align:center;padding:40px;color:var(--ink3);font-size:17px;display:none}
+
+footer{background:var(--navy);color:#f5cdb8;margin-top:40px}
+.foot-in{max-width:1180px;margin:0 auto;padding:24px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:14.5px}
+.foot-in .logo b{color:#fff}
+.up{position:fixed;right:20px;bottom:20px;width:46px;height:46px;border-radius:50%;background:var(--blue);color:#fff;border:0;font-size:24px;cursor:pointer;box-shadow:var(--shadow-h);opacity:0;transform:translateY(20px);transition:.3s;z-index:40}
+.up.show{opacity:1;transform:none}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:30px;font-weight:600;font-size:16px;z-index:99;box-shadow:var(--shadow-h);transition:.35s;max-width:90vw}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+@media(max-width:860px){
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .grid{grid-template-columns:1fr}.info-grid{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .nav-links{display:none;position:absolute;top:60px;left:0;right:0;background:var(--navy);flex-direction:column;padding:10px 16px 16px;gap:3px}
+  .nav-links.open{display:flex}.burger{display:block}
+  .sec-desc{margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<div style="background:#fff;border-bottom:1px solid #e4e9f0">
+  <div style="max-width:1180px;margin:0 auto;padding:11px 22px">
+    <a href="https://febi.uinsalatiga.ac.id/bd/magang/" style="display:inline-flex;align-items:center;gap:7px;color:#d62828;font-weight:700;font-size:15.5px;text-decoration:none;font-family:'Outfit',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Arial,sans-serif">← Kembali ke Pusat Magang</a>
+  </div>
+</div>
+
+<div id="top" class="hero">
+  <div class="wrap hero-in">
+    <span class="tag">● Tempat Magang di Sekitar UIN Salatiga · 2026</span>
+    <h1>Tempat Magang <span class="y">di Sekitar UIN Salatiga</span></h1>
+    <p>Berbagai tempat magang yang bisa dipilih mahasiswa Bisnis Digital, di sekitar Salatiga, Semarang, Solo, Jogja, dan jalur online. Termasuk <b style="color:#f77f00">12 rekomendasi utama</b> (punya program magang aktif, dengan tautan sumber), lengkap dengan kontak, pemetaan ke 3 peminatan Tugas Akhir, serta divisi &amp; job desk.</p>
+    <div class="stats">
+      <div class="stat-grid">
+        <div class="stat"><b id="s-total">0</b><small>Total tempat magang</small></div>
+        <div class="stat"><b id="s-prio">0</b><small>Rekomendasi utama</small></div>
+        <div class="stat"><b id="s-off">0</b><small>Offline (4 kota)</small></div>
+        <div class="stat"><b id="s-on">0</b><small>Online / hybrid</small></div>
+        <div class="stat"><b>3</b><small>Peminatan TA</small></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="controls-in">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <input id="q" type="text" placeholder="Cari nama perusahaan, kota, atau bidang…" oninput="applyFilter()">
+    </div>
+    <div class="filters" id="filters"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div id="sections"></div>
+  <div class="empty" id="empty">Tidak ada mitra yang cocok dengan pencarian. Coba kata kunci lain.</div>
+
+  <!-- PANDUAN -->
+  <section id="panduan">
+    <div class="sec-head"><div class="sec-ic" style="background:#fef3c7">📚</div><h2>Divisi, Job Desk &amp; Kaitan ke Tugas Akhir</h2></div>
+    <p class="sec-desc">Panduan ringkas: divisi apa yang bisa diisi mahasiswa, apa kerjaannya, dan bagaimana magang menunjang Tugas Akhir, lewat 2 jalur (Skripsi/Project) dan 3 peminatan prodi.</p>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>🧩 Divisi yang bisa diisi &amp; job desk</h3>
+        <div id="divisi"></div>
+      </div>
+      <div class="info-card">
+        <h3>🎯 Kaitan magang → Tugas Akhir</h3>
+        <div id="korelasi"></div>
+      </div>
+    </div>
+    <div class="note">
+      <b>Cara pakai:</b> Ini daftar berbagai tempat magang yang bisa dipilih mahasiswa Bisnis Digital. Kartu bertanda <b>★ Rekomendasi</b> adalah tempat yang terverifikasi punya program magang aktif (ada tautan sumber). Chip <b>peminatan</b> pada tiap kartu menandakan peminatan TA yang paling relevan dengan bidang tempat tersebut (indikatif, bisa lintas peminatan). Lowongan, kuota, durasi, mode kerja, dan kontak berubah sewaktu-waktu, jadi verifikasi langsung ke perusahaan sebelum mengontak.
+    </div>
+  </section>
+</div>
+
+
+<button class="up" id="up" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="toast" id="toast">Disalin</div>
+
+<script>
+const C={blue:'#b45309',green:'#00304a',purple:'#d62828',orange:'#f77f00',teal:'#9a1f1f',pink:'#d62828',slate:'#00304a'};
+
+/* 3 peminatan Tugas Akhir, warna & label chip */
+const PC={pemasaran:'#f77f00',wirausaha:'#d62828',analisis:'#00304a'};
+const PNAME={pemasaran:'Pemasaran Digital',wirausaha:'Kewirausahaan Digital',analisis:'Analisis Bisnis Digital'};
+const PSHORT={pemasaran:'Pemasaran',wirausaha:'Kewirausahaan',analisis:'Analisis'};
+
+const CATS=[
+ {id:'agensi',name:'Agensi Digital Marketing & E-Commerce Enabler',ic:'📣',color:C.orange,pem:['pemasaran'],
+  desc:'Cocok untuk magang pemasaran digital, social media, content, dan optimasi iklan, selaras peminatan Pemasaran Digital.'},
+ {id:'tech',name:'Software House, Startup & UMKM Tech',ic:'💻',color:C.green,pem:['analisis','wirausaha'],
+  desc:'Pengembangan web/aplikasi, sistem informasi, UI/UX, QA, serta startup, selaras Analisis Bisnis Digital & Kewirausahaan Digital.'},
+ {id:'fintech',name:'Fintech, Perbankan Syariah, BMT & Koperasi Digital',ic:'🏛️',color:C.purple,pem:['analisis','wirausaha'],
+  desc:'Layanan keuangan digital, literasi, transformasi digital koperasi, selaras Analisis Bisnis Digital & Kewirausahaan Digital (ciri syariah prodi).'},
+ {id:'instansi',name:'Instansi, BUMN & E-Commerce Besar',ic:'🏢',color:C.blue,pem:['analisis','pemasaran'],
+  desc:'Program magang terstruktur skala nasional, data & analitik, operasi e-commerce, selaras Analisis Bisnis Digital & Pemasaran Digital.'},
+ {id:'online',name:'Platform Magang Online / Project-Based',ic:'🌐',color:C.teal,pem:['pemasaran','wirausaha','analisis'],
+  desc:'Magang remote berbasis proyek, fleksibel, banyak dikonversi SKS, selaras semua peminatan.'},
+];
+
+const MITRA=[
+ // AGENSI
+ {cat:'agensi',name:'Web Media Solusi Digital',city:'Salatiga',fmt:'Offline',
+  desc:'Agensi web & digital marketing yang membuka magang untuk mahasiswa IT/bisnis digital.',
+  web:'webmediadigital.com/internship',contact:'Via form di website',
+  divs:['Digital Marketing','Web/SEO','Content'],mou:'m'},
+ {cat:'agensi',name:'Sevenstar Indonesia',city:'Online / Nasional',fmt:'Online',
+  desc:'Penyedia magang digital marketing dengan tools industri (GA, Meta Business Suite, Canva).',
+  web:'sevenstarindonesia.com',contact:'Via website',
+  divs:['Digital Marketing','Ads','Content'],mou:'m'},
+ {cat:'agensi',name:'Dekayu Indonesia',city:'Yogyakarta',fmt:'Hybrid',
+  desc:'Marketing communication & social media; magang hybrid (3 hari WFO, 3 hari WFA).',
+  web:'Cari "Dekayu Indonesia" di Indeed/Jobstreet',contact:'Indeed / Jobstreet',
+  divs:['Marketing Comm','Social Media'],mou:'m'},
+ {cat:'agensi',name:'PT Mirota KSM (Marketing Online)',city:'Yogyakarta',fmt:'Offline',
+  desc:'Magang digital marketing & marketing online pada lini FnB/produk; WFO Senin–Jumat.',
+  web:'Cari di Indeed Yogyakarta',contact:'Indeed',
+  divs:['Marketing Online','E-Commerce'],mou:'m'},
+ {cat:'agensi',name:'Sooca Design',city:'Semarang / Solo',fmt:'Hybrid',
+  desc:'Graphic design & creative agency; membuka magang talenta muda kreatif.',
+  web:'Cari "Sooca Design" di Glassdoor/Indeed',contact:'Glassdoor / Indeed',
+  divs:['Desain Grafis','Branding','Content'],mou:'m'},
+
+ // TECH
+ {cat:'tech',name:'Techarea',city:'Semarang',fmt:'Hybrid',
+  desc:'Software house; magang proyek nyata di software development, desain, & pemasaran digital. Buka sepanjang tahun, min. 3 bulan, bisa remote.',
+  web:'techarea.co.id/magang',contact:'Form pendaftaran di website',
+  divs:['Software Dev','UI/UX','Digital Marketing'],mou:'y'},
+ {cat:'tech',name:'Wesclic Neo Technology',city:'Yogyakarta',fmt:'Hybrid',
+  desc:'Software house (web, mobile, e-commerce). Program "Winnership" untuk web/app developer intern, kerja hybrid cloud.',
+  web:'wesclic.com/career',contact:'[email protected]',
+  divs:['Web Developer','App Developer','UI/UX'],mou:'y'},
+ {cat:'tech',name:'Phicos Group',city:'Solo',fmt:'Offline',
+  desc:'Software house: pengembangan web, aplikasi mobile, desain grafis. Berpengalaman proyek pemerintah & swasta.',
+  web:'Cari "Phicos Group Solo"',contact:'Via website resmi',
+  divs:['Web Dev','Mobile Dev','Desain Grafis'],mou:'m'},
+ {cat:'tech',name:'Evetech Solution',city:'Solo',fmt:'Offline',
+  desc:'Software house (web app, mobile, ERP, POS). Portofolio: POS restoran, platform laundry, e-commerce.',
+  web:'Cari "Evetech Solution Solo"',contact:'Via website resmi',
+  divs:['Web App Dev','Mobile Dev','ERP/POS'],mou:'m'},
+ {cat:'tech',name:'KadangKoding',city:'Sukoharjo (Solo Raya)',fmt:'Offline',
+  desc:'Software house dengan program internship; dikenal ramah & komunikatif untuk pemula.',
+  web:'kadangkoding.com',contact:'[email protected] · 0851-7423-8491',
+  divs:['Web Dev','Programming'],mou:'m'},
+ {cat:'tech',name:'AB System',city:'Karanganyar (Solo Raya)',fmt:'Offline',
+  desc:'Software & mobile development, multimedia, desain grafis. Klien besar (Polri, RS, Kimia Farma).',
+  web:'absystem.id',contact:'(0271) 782274 · [email protected]',
+  divs:['Software Dev','Mobile Dev','Multimedia'],mou:'m'},
+ {cat:'tech',name:'Digimizu Solo',city:'Solo',fmt:'Offline',
+  desc:'Web development, digital management, videography. Direkomendasikan sebagai tempat magang.',
+  web:'Cari "Digimizu Solo"',contact:'Via website/IG resmi',
+  divs:['Web Dev','Digital Mgmt','Videografi'],mou:'m'},
+ {cat:'tech',name:'MadaniTec',city:'Yogyakarta',fmt:'Offline',
+  desc:'Perusahaan teknologi di Jogja yang rutin membuka magang (produksi, teknis, desain).',
+  web:'Cari "MadaniTec" di Indeed',contact:'Indeed',
+  divs:['Teknis/Produksi','Desain'],mou:'m'},
+ {cat:'tech',name:'GMedia (Media Sarana Data)',city:'Solo / Yogyakarta',fmt:'Offline',
+  desc:'Perusahaan teknologi informasi & komunikasi (ISP & solusi digital). Membuka magang/staf.',
+  web:'gmedia.net.id',contact:'Via website resmi',
+  divs:['IT Support','Sales/Marketing','Jaringan'],mou:'m'},
+
+ // FINTECH
+ {cat:'fintech',name:'Bank Syariah Indonesia (BSI)',city:'Semarang/Solo/Jogja/Salatiga',fmt:'Offline',
+  desc:'Bank syariah terbesar; magang operasional, layanan, literasi & promosi digital syariah.',
+  web:'bankbsi.co.id (menu Karier)',contact:'Cabang setempat / web karier',
+  divs:['Operasional','Layanan Nasabah','Digital/Marketing'],mou:'y'},
+ {cat:'fintech',name:'BTN Syariah KC Semarang',city:'Semarang (membawahi Klaten, Magelang, dll.)',fmt:'Offline',
+  desc:'Magang 3 bulan; kontribusi literasi tabungan syariah & peningkatan konten promosi. Rutin menerima mahasiswa magang.',
+  web:'btn.co.id',contact:'Human Capital KC Semarang',
+  divs:['Literasi Syariah','Konten Promosi','PkM'],mou:'y'},
+ {cat:'fintech',name:'BMT Beringharjo',city:'Yogyakarta (jaringan luas)',fmt:'Offline',
+  desc:'KSPPS/BMT yang bertransformasi digital (IoT, AI, fintech). Pemberdayaan UMKM & program sosial.',
+  web:'bmtberingharjo.com',contact:'Via website resmi',
+  divs:['Keuangan Mikro','Digitalisasi','Pemberdayaan UMKM'],mou:'y'},
+ {cat:'fintech',name:'BMT / KSPPS lokal (mis. Al Hikmah, Tumang)',city:'Salatiga/Semarang/Boyolali',fmt:'Offline',
+  desc:'BMT lokal sering menerima magang MBKM: mekanisme akad, pengelolaan dana, input data, promosi.',
+  web:'Cari BMT terdekat (Al Hikmah Ungaran, Tumang)',contact:'Kantor cabang setempat',
+  divs:['Akad/Pembiayaan','Tabungan','Marketing'],mou:'y'},
+ {cat:'fintech',name:'BTPN Syariah',city:'Jateng-DIY (remote site) / Nasional',fmt:'Hybrid',
+  desc:'Rutin buka magang Kampus Merdeka (pemberdayaan, IT, admin, konten). Penempatan area Jateng-DIY.',
+  web:'btpnsyariah.com',contact:'Via Kampus Merdeka / web karier',
+  divs:['Pemberdayaan','IT','Konten/Admin'],mou:'y'},
+ {cat:'fintech',name:'Ammana / Investree Syariah (Fintech)',city:'Online / Nasional',fmt:'Online',
+  desc:'Fintech P2P lending syariah; magang untuk melihat layanan keuangan digital berbasis syariah.',
+  web:'ammana.id',contact:'Via website resmi',
+  divs:['Operasi Fintech','Analis','Marketing Digital'],mou:'m'},
+
+ // INSTANSI
+ {cat:'instansi',name:'MAGENTA – Magang BUMN',city:'Online + penempatan BUMN',fmt:'Hybrid',
+  desc:'Portal resmi magang BUMN. Banyak posisi: corporate comm, content, digital, admin. Konversi SKS.',
+  web:'magenta.bumn.go.id',contact:'[email protected]',
+  divs:['Corporate Comm','Content/Digital','Admin/Operasi'],mou:'y'},
+ {cat:'instansi',name:'Bank Indonesia (MBKM)',city:'Online + kantor perwakilan',fmt:'Hybrid',
+  desc:'Magang bergengsi MBKM: data, kebijakan, sistem pembayaran. Relevan untuk analis & riset.',
+  web:'bi.go.id / Kampus Merdeka',contact:'Via Kampus Merdeka',
+  divs:['Riset/Data','Sistem Pembayaran','Komunikasi'],mou:'y'},
+ {cat:'instansi',name:'Shopee (Engineering/Operasi)',city:'Solo (hub) / Online',fmt:'Hybrid',
+  desc:'E-commerce besar; magang engineering, operasi seller, & data. Cocok untuk analis & developer.',
+  web:'careers.shopee.co.id',contact:'Portal karier Shopee',
+  divs:['Operasi Seller','Data/Analitik','IT Support'],mou:'y'},
+ {cat:'instansi',name:'ShopTokopedia / Tokopedia (TikTok)',city:'Yogyakarta / Online',fmt:'Hybrid',
+  desc:'Program intern e-commerce: QA, backend, operasi merchant/creator. Periode terjadwal (mis. Feb–Jun).',
+  web:'tiktok.com/careers',contact:'Portal karier',
+  divs:['QA','Operasi Merchant','Backend'],mou:'y'},
+ {cat:'instansi',name:'Dishub / Diskominfo Kota (Pemkot)',city:'Salatiga/Semarang/Solo',fmt:'Offline',
+  desc:'Instansi pemerintah daerah; magang sistem informasi, data, & layanan publik digital (selaras proyek IoT/SITARA).',
+  web:'Website Pemkot setempat',contact:'Bagian umum/kepegawaian',
+  divs:['Sistem Informasi','Data Publik','Layanan Digital'],mou:'y'},
+
+ // ONLINE
+ {cat:'online',name:'Kampus Merdeka (MSIB)',city:'Online / Nasional',fmt:'Online',
+  desc:'Program resmi Kemdikbud; ratusan posisi magang bersertifikat, konversi hingga 20 SKS.',
+  web:'kampusmerdeka.kemdikbud.go.id',contact:'Portal resmi',
+  divs:['Beragam (pilih sesuai prodi)'],mou:'y'},
+ {cat:'online',name:'Rakamin Academy',city:'Online',fmt:'Online',
+  desc:'Virtual internship experience & bootcamp (data, marketing, product). Banyak dikonversi SKS.',
+  web:'rakamin.com',contact:'Via website',
+  divs:['Data Analytics','Digital Marketing','Product'],mou:'m'},
+ {cat:'online',name:'Luarsekolah / Belajar Bekerja (PBI)',city:'Online',fmt:'Online',
+  desc:'Project-Based Internship dari nol, bersilabus, mentor industri, sertifikat & konversi SKS.',
+  web:'pbi.belajarbekerja.com',contact:'Via website (Discord program)',
+  divs:['Digital Marketing','Data','Bisnis'],mou:'m'},
+ {cat:'online',name:'RevoU / MySkill',city:'Online',fmt:'Online',
+  desc:'Mini-course + project digital marketing/data analytics yang dapat jadi portofolio TA.',
+  web:'revou.co · myskill.id',contact:'Via website',
+  divs:['Digital Marketing','Data Analytics'],mou:'m'},
+ {cat:'online',name:'Internship.id',city:'Online + Jakarta/Bandung/Semarang/Jogja/Surabaya',fmt:'Hybrid',
+  desc:'Agregator lowongan magang IT, programming, multimedia, bisnis. Termasuk perusahaan Jateng.',
+  web:'internship.id',contact:'Via website',
+  divs:['IT/Programming','Multimedia','Bisnis'],mou:'m'},
+
+ {cat:'online',name:'Maganghub Kemnaker',city:'Online / Nasional',fmt:'Online',prio:2,match:85,
+  desc:'Portal magang resmi Kementerian Ketenagakerjaan; menghubungkan mahasiswa dengan perusahaan mitra secara nasional.',
+  web:'maganghub.kemnaker.go.id',contact:'Via portal resmi',src:'https://maganghub.kemnaker.go.id/',
+  divs:['Beragam (pilih sesuai prodi)'],mou:'y'},
+ {cat:'online',name:'Diploy Virtual Internship',city:'Online',fmt:'Online',
+  desc:'Platform virtual internship berbasis proyek; cocok untuk membangun portofolio digital marketing & data yang dapat dilanjutkan jadi TA.',
+  web:'diploy.id/virtual-internship',contact:'Via website',src:'https://diploy.id/virtual-internship',
+  divs:['Digital Marketing','Data','Product'],mou:'m'},
+
+ // ===== MITRA PRIORITAS (dari referensi terverifikasi, penelusuran 28 Jun 2026) =====
+ {cat:'tech',name:'GAMELAB Indonesia (PT Educa Sisfomedia)',city:'Salatiga',fmt:'Hybrid',prio:1,match:98,
+  desc:'Punya program magang/PKL digital ("Kampus Mitra"). Bidang sangat relevan & paling dekat kampus. Cek jadwal batch.',
+  web:'gamelab.id/kampus-mitra',contact:'Via halaman Kampus Mitra',src:'https://www.gamelab.id/kampus-mitra',
+  divs:['Digital Business & Partnership','Digital Marketing & Content','Web/Product','Learning/Data Analytics'],mou:'y'},
+ {cat:'instansi',name:'Dinas Kominfo Kota Semarang',city:'Semarang',fmt:'Offline',prio:1,match:96,
+  desc:'Rutin menerima mahasiswa magang di layanan publik digital, SPBE, website & evaluasi UX.',
+  web:'diskominfo.semarangkota.go.id',contact:'Bagian umum / kepegawaian Diskominfo',src:'https://diskominfo.semarangkota.go.id/berita/rapat-koordinasi-perjanjian-kerjasama-antara-dinas-kominfo-kota-semarang-dan-sekolah-vokasi-sarjana-terapan-universitas-diponegoro',
+  divs:['SPBE & Layanan Digital','Komunikasi Publik','Statistik & Data','Website/QA'],mou:'y'},
+ {cat:'instansi',name:'Bank Indonesia, KPw Semarang/Solo/DIY',city:'Multi-area',fmt:'Offline',prio:1,match:94,
+  desc:'Punya skema magang terstruktur untuk mahasiswa. Sangat kuat untuk riset ekonomi digital, pembayaran digital, fintech, UMKM & literasi keuangan.',
+  web:'bi.go.id/id/karier/internship-program.aspx',contact:'Via portal karier BI',src:'https://www.bi.go.id/id/karier/internship-program.aspx',
+  divs:['Riset Ekonomi Regional','Sistem Pembayaran/Fintech','Pengembangan UMKM','Komunikasi'],mou:'y'},
+ {cat:'instansi',name:'Telkom Witel Yogya–Jateng Selatan',city:'Yogyakarta',fmt:'Hybrid',prio:1,match:95,
+  desc:'Ada portal Internship & Kerja Praktik khusus; mahasiswa dilibatkan di proyek industri. Relevan untuk bisnis digital, marketing, CX, product & data.',
+  web:'Portal Internship Witel Yogya',contact:'Via portal internship Witel',src:'https://www.telkom.co.id/',
+  divs:['Enterprise/Business','Digital Marketing','Customer Experience','Data/Project Support'],mou:'y'},
+ {cat:'tech',name:'Seven Inc / Magangjogja',city:'Yogyakarta',fmt:'Offline',prio:1,match:91,
+  desc:'Program internship aktif via kanal Magangjogja: digital marketing, social media, videografi, HR & bisnis. Praktis untuk banyak mahasiswa sekaligus.',
+  web:'magangjogja.com',contact:'Via website Magangjogja',src:'https://magangjogja.com/',
+  divs:['Digital Marketing','Social Media & Content','E-commerce/Business','IT & UI/UX','HR Analytics'],mou:'y'},
+ {cat:'online',name:'BISA AI Academy',city:'Online',fmt:'Online',prio:1,match:95,
+  desc:'Kolaborasi institusi kuat (dipercaya ratusan universitas). Skema proyek/academy untuk AI, data science, UI/UX, full-stack, IoT & robotika.',
+  web:'bisa.ai',contact:'Via website',src:'https://bisa.ai/',
+  divs:['AI & Data Science','Full-stack/System Analyst','UI/UX','Business Development','Fintech/Blockchain'],mou:'y'},
+ {cat:'instansi',name:'BPS Daerah (Salatiga/Semarang/Surakarta/DIY)',city:'Multi-area',fmt:'Offline',prio:2,match:87,
+  desc:'Kantor BPS daerah biasa menerima mahasiswa magang (per kantor). Ideal untuk track riset & data: tersedia data statistik, diseminasi, visualisasi.',
+  web:'bps.go.id (pilih kantor daerah)',contact:'Ajukan ke kantor BPS setempat',src:'https://boyolalikab.bps.go.id/',
+  divs:['Pengolahan Data','Diseminasi Statistik','Statistik Sektoral','Administrasi Survei'],mou:'m'},
+ {cat:'tech',name:'Solo Technopark',city:'Solo',fmt:'Offline',prio:2,match:88,
+  desc:'Pusat inovasi & ekosistem kewirausahaan Kota Solo. Ideal untuk startup/project-based thesis, inkubasi, riset pasar & pengembangan produk. Perlu penjajakan.',
+  web:'solotechnopark.id',contact:'Via surat resmi / website',src:'https://solotechnopark.id/',
+  divs:['Inkubasi & Startup','Program & Event','Product Innovation','Market/Data Research'],mou:'m'},
+ {cat:'instansi',name:'Pemkot Surakarta (Setda/Setwan/Diskominfo/BRIDA)',city:'Solo',fmt:'Offline',prio:2,match:84,
+  desc:'Ada riwayat mahasiswa magang (UNS, UNNES). Arahkan ke unit layanan digital, komunikasi, data atau inovasi. Kasus nyata pemerintahan & pelayanan publik.',
+  web:'surakarta.go.id',contact:'Bagian umum unit terkait',src:'https://setwan.surakarta.go.id/',
+  divs:['Komunikasi & Media','Digitalisasi Layanan','Data & Riset','Event/Stakeholder'],mou:'m'},
+ {cat:'tech',name:'Jogja Digital Valley',city:'Yogyakarta',fmt:'Hybrid',prio:2,match:86,
+  desc:'Ekosistem startup dengan rekam kolaborasi pendidikan. Cocok untuk bangun startup, validasi pasar, UI/UX research, atau proyek bersama tenant.',
+  web:'digitalsociety.id (Jogja Digital Valley)',contact:'Via website ekosistem',src:'https://digitalsociety.id/teams/jogja-digital-valley/',
+  divs:['Startup Ecosystem','Incubation Support','Community/Event','Product/UX Research'],mou:'m'},
+ {cat:'tech',name:'Widya Inovasi Indonesia / Widya Robotics',city:'Yogyakarta',fmt:'Offline',prio:2,match:90,
+  desc:'Pernah buka internship: software developer, content creator, social media, marketing. Kuat untuk gabungan teknologi, AI/robotics, product & marketing. Lowongan periodik.',
+  web:'widya.ai/career',contact:'Via halaman career',src:'https://widya.ai/career/',
+  divs:['Software/Product','AI/Data','Project Management','Marketing & After-sales'],mou:'m'},
+ {cat:'agensi',name:'Rumahweb Indonesia',city:'Yogyakarta',fmt:'Offline',prio:2,match:89,
+  desc:'Terdeteksi lowongan SEO & Digital Marketing Paid Internship. Sesuai untuk SEO, content marketing, web product, customer success & analitik performa.',
+  web:'rumahweb.com',contact:'Via lowongan / website',src:'https://id.jobstreet.com/id/digital-marketing-internship-jobs/in-DI-Yogyakarta',
+  divs:['SEO & Content','Digital Marketing','Customer Success','Product/Web'],mou:'m'},
+];
+
+// DIVISI panduan
+const DIVISI=[
+ {ic:'📣',bg:'#ffedd5',h:'Digital Marketing / Ads',p:'Kelola kampanye Meta/Google/TikTok Ads, riset kata kunci, optimasi konversi, laporan performa (GA/Insights).'},
+ {ic:'📱',bg:'#fce7f3',h:'Social Media & Content',p:'Buat kalender konten, copywriting, desain feed, kelola engagement, analisis metrik per platform.'},
+ {ic:'💻',bg:'#ffedd5',h:'Web / App Developer',p:'Bantu coding fitur, testing & debugging, integrasi API/database, dokumentasi, pakai Git.'},
+ {ic:'🎨',bg:'#ede9fe',h:'UI/UX & Desain',p:'Riset pengguna, wireframe & prototype, usability testing, desain visual, design system.'},
+ {ic:'📊',bg:'#dbeafe',h:'Data / Business Analyst',p:'Olah & bersihkan data, buat dashboard, analisis tren, visualisasi untuk pengambilan keputusan.'},
+ {ic:'🏛️',bg:'#f3e8ff',h:'Operasi Keuangan/Syariah',p:'Pelajari akad, input transaksi, literasi produk, dukung promosi & pemberdayaan UMKM.'},
+ {ic:'🛒',bg:'#fef9c3',h:'Operasi E-Commerce/Seller',p:'Kelola toko/merchant, optimasi listing, layanan pelanggan, koordinasi live commerce & promosi.'},
+];
+
+// KAITAN ke Tugas Akhir, 2 jalur + 3 peminatan
+const JALUR_TA=[
+ {c:'#d62828',k:'S',h:'Jalur Skripsi (riset)',p:'Magang jadi sumber data primer & studi kasus nyata (survei pelanggan, perilaku, adopsi teknologi) untuk riset.'},
+ {c:'#f77f00',k:'P',h:'Jalur Project (terapan)',p:'Luaran magang (kampanye, produk/sistem, dashboard) langsung jadi artefak Project akhir + dokumentasi & pengujian.'},
+];
+const PEMINATAN_TA=[
+ {c:PC.pemasaran,k:'1',h:'Pemasaran Digital',p:'CPL inti 5 & 9 + CPL7. Magang relevan: digital marketing, konten, ads, kreatif/multimedia.'},
+ {c:PC.wirausaha,k:'2',h:'Kewirausahaan Digital',p:'CPL inti 5 & 9 + CPL6. Magang relevan: startup, e-commerce, business development, kemitraan UMKM.'},
+ {c:PC.analisis,k:'3',h:'Analisis Bisnis Digital',p:'CPL inti 5 & 9 + CPL8, CPL10. Magang relevan: data/analis, riset, sistem/web, statistik.'},
+];
+
+/* RENDER */
+let activeCat='all';
+let prioOnly=false;
+const filtersEl=document.getElementById('filters');
+[['all','Semua',C.slate],...CATS.map(c=>[c.id,c.name.split(' ').slice(0,2).join(' '),c.color])]
+.forEach(([id,label,col],i)=>{
+  const b=document.createElement('button');b.className='fbtn'+(i===0?' active':'');b.textContent=label;b.dataset.col=col;b.dataset.id=id;
+  if(i===0){b.style.background=col;b.style.borderColor=col;b.style.color='#fff';}
+  b.onclick=()=>{activeCat=id;document.querySelectorAll('.fbtn[data-id]').forEach(x=>{x.classList.remove('active');x.style.background='';x.style.borderColor='';x.style.color='';});
+    b.classList.add('active');b.style.background=col;b.style.borderColor=col;b.style.color='#fff';applyFilter();};
+  filtersEl.appendChild(b);
+});
+// Priority toggle
+const pb=document.createElement('button');pb.className='fbtn prio-toggle';pb.innerHTML='★ Rekomendasi';
+pb.onclick=()=>{prioOnly=!prioOnly;pb.classList.toggle('active',prioOnly);
+  pb.style.background=prioOnly?'#fbbf24':'';pb.style.borderColor=prioOnly?'#fbbf24':'';pb.style.color=prioOnly?'#854d0e':'';applyFilter();};
+filtersEl.appendChild(pb);
+
+function mitraCard(m){
+  const cat=CATS.find(c=>c.id===m.cat);const col=cat.color;
+  const fmtCls=m.fmt==='Offline'?'fmt-off':m.fmt==='Online'?'fmt-on':'fmt-hy';
+  const init=m.name.replace(/^(PT|CV|KSPPS|BMT)\s+/i,'').trim().split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+  const webDisplay=m.web.includes('.')&&!m.web.includes(' ')?`<a href="https://${m.web.replace(/^https?:\/\//,'')}" target="_blank" rel="noopener">${m.web}</a>`:m.web;
+  const prioBadge=m.prio?`<span class="prio-badge prio-${m.prio}">★ Rekomendasi · ${m.match}% relevan</span>`:'';
+  const srcLink=m.src?`<a class="srclink" href="${m.src}" target="_blank" rel="noopener">Buka sumber ↗</a>`:'';
+  const pems=(cat.pem||[]);
+  return `<div class="mitra${m.prio?' is-prio':''}" style="--mc:${col}" data-prio="${m.prio||0}" data-search="${(m.name+' '+m.city+' '+m.desc+' '+m.divs.join(' ')).toLowerCase()}">
+    <div class="mh">
+      <div class="mlogo">${init}</div>
+      <div class="mt"><h3>${m.name}</h3><div class="loc">📍 ${m.city}</div></div>
+      <span class="fmt ${fmtCls}">${m.fmt.toUpperCase()}</span>
+    </div>
+    ${prioBadge?`<div class="prio-wrap">${prioBadge}</div>`:''}
+    <div class="mbody">
+      <p class="mdesc">${m.desc}</p>
+      <div class="row"><span class="k">🔗 Web</span><span class="v">${webDisplay}</span></div>
+      <div class="row"><span class="k">✉️ Kontak</span><span class="v">${m.contact}${srcLink?' · '+srcLink:''}</span></div>
+      <div class="row"><span class="k">🧩 Divisi</span><span class="v"><div class="divs">${m.divs.map(d=>`<span class="divtag">${d}</span>`).join('')}</div></span></div>
+    </div>
+    <div class="mfoot">
+      <span class="corr">Peminatan:</span>
+      ${pems.map(p=>`<span class="tabchip" style="background:${PC[p]}">${PSHORT[p]}</span>`).join('')}
+
+    </div>
+  </div>`;
+}
+
+function renderSections(){
+  const root=document.getElementById('sections');root.innerHTML='';
+  CATS.forEach(cat=>{
+    const items=MITRA.filter(m=>m.cat===cat.id)
+      .sort((a,b)=>(b.prio?100-b.match*0+ (3-b.prio)*1000:0)-(a.prio?100-a.match*0+(3-a.prio)*1000:0)||(b.match||0)-(a.match||0));
+    const sec=document.createElement('section');sec.id=cat.id;
+    sec.innerHTML=`
+      <div class="sec-head"><div class="sec-ic" style="background:${cat.color}1f">${cat.ic}</div>
+        <h2>${cat.name}</h2><span class="cnt">${items.length} mitra</span></div>
+      <p class="sec-desc">${cat.desc}</p>
+      <div class="grid">${items.map(mitraCard).join('')}</div>`;
+    root.appendChild(sec);
+  });
+}
+renderSections();
+
+// Stats
+document.getElementById('s-total').textContent=MITRA.length;
+document.getElementById('s-prio').textContent=MITRA.filter(m=>m.prio).length;
+document.getElementById('s-off').textContent=MITRA.filter(m=>m.fmt==='Offline').length;
+document.getElementById('s-on').textContent=MITRA.filter(m=>m.fmt==='Online'||m.fmt==='Hybrid').length;
+
+// Divisi & Kaitan ke TA
+document.getElementById('divisi').innerHTML=DIVISI.map(d=>`
+  <div class="divrow"><h4><span class="dic" style="background:${d.bg}">${d.ic}</span>${d.h}</h4><p>${d.p}</p></div>`).join('');
+document.getElementById('korelasi').innerHTML=
+  `<div class="corr-sub">Dua jalur Tugas Akhir</div>`+
+  JALUR_TA.map(k=>`<div class="corr-row"><div class="ml" style="background:${k.c}">${k.k}</div>
+    <div><h4>${k.h}</h4><p>${k.p}</p></div></div>`).join('')+
+  `<div class="corr-sub">Tiga peminatan</div>`+
+  PEMINATAN_TA.map(k=>`<div class="corr-row"><div class="ml" style="background:${k.c}">${k.k}</div>
+    <div><h4>${k.h}</h4><p>${k.p}</p></div></div>`).join('');
+
+// Filter + search
+function applyFilter(){
+  const q=document.getElementById('q').value.toLowerCase().trim();
+  let any=false;
+  document.querySelectorAll('#sections section').forEach(sec=>{
+    const catMatch=activeCat==='all'||sec.id===activeCat;
+    let secAny=false;
+    sec.querySelectorAll('.mitra').forEach(card=>{
+      const txt=card.dataset.search;
+      const isPrio=card.dataset.prio!=='0';
+      const show=catMatch&&(!q||txt.includes(q))&&(!prioOnly||isPrio);
+      card.style.display=show?'flex':'none';
+      if(show){secAny=true;any=true;}
+    });
+    sec.style.display=secAny?'block':'none';
+  });
+  document.getElementById('empty').style.display=any?'none':'block';
+}
+
+// nav active + top
+const links=[...document.querySelectorAll('.nav-links a')];
+addEventListener('scroll',()=>{
+  const y=scrollY+130;let cur='';
+  document.querySelectorAll('section[id]').forEach(s=>{if(s.offsetTop<=y)cur=s.id});
+  links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+  document.getElementById('up').classList.toggle('show',scrollY>500);
+});
+document.querySelectorAll('.nav-links a').forEach(a=>a.onclick=()=>document.getElementById('nl').classList.remove('open'));
+</script>
+</body>
+</html>

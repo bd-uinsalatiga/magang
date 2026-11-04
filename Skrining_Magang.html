@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pemandu Magang: Skrining Minat, Kemampuan & Kesiapan | Bisnis Digital UIN Salatiga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#00304a;--green:#00304a;--purple:#b45309;--orange:#f77f00;--teal:#d62828;--pink:#d62828;--slate:#00304a;
+  --navy:#00304a;--navy2:#0b4a6e;--yellow:#f6b900;
+  --ink:#263544;--ink2:#5b6b7a;--ink3:#9aa7b2;--teal-d:#b42318;
+  --bg:#f6f8fb;--card:#fff;--line:#e4e9f0;
+  --shadow:0 4px 20px rgba(15,42,82,.07);--shadow-h:0 14px 38px rgba(15,42,82,.13);
+  --r:16px;--font:'Outfit',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:880px;margin:0 auto;padding:0 20px}
+
+nav{background:var(--navy)}
+.nav-in{max-width:880px;margin:0 auto;padding:13px 20px;display:flex;align-items:center;gap:11px;color:#fff}
+.crest{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--yellow),#f77f00);display:grid;place-items:center;color:var(--navy);font-weight:800;font-size:15.5px;flex:none}
+.uinlogo{height:34px;width:auto;flex:none}
+.hero-logo{width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,var(--yellow),#f77f00);color:var(--navy);font-weight:800;font-size:31px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.nav-in b{font-size:16px;font-weight:700;line-height:1.15}
+.nav-in span{display:block;font-size:12px;font-weight:500;color:#f2bda3;letter-spacing:1px}
+
+.hero{background:var(--card);color:var(--navy);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(0,48,74,.05) 1px,transparent 1px);background-size:20px 20px;opacity:.5}
+.hero-in{padding:44px 0 38px;position:relative;z-index:2;text-align:center}
+.hero .tag{display:inline-block;font-size:14.5px;font-weight:600;letter-spacing:1px;color:#d62828;background:#fdecec;margin-bottom:14px;border:1px solid #f6cccc;padding:5px 13px;border-radius:30px}
+.hero h1{font-size:clamp(30px,4.8vw,45px);font-weight:800;line-height:1.13;letter-spacing:-.5px}
+.hero h1 .y{color:var(--orange)}
+.hero p{margin:15px auto 0;color:var(--ink2);font-size:19px;max-width:560px}
+.method{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.method span{font-size:14px;font-weight:600;background:#f1f5f9;border:1px solid var(--line);padding:6px 12px;border-radius:20px;color:var(--ink2)}
+
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);border:1px solid var(--line);padding:26px;margin:22px 0}
+.qcard{display:flex;flex-direction:column;min-height:380px}
+.qcard #qcontent{flex:1}
+.nav-btns{margin-top:auto!important}
+
+/* progress */
+.progress-wrap{position:sticky;top:0;z-index:30;background:rgba(238,242,249,.96);backdrop-filter:blur(8px);padding:12px 0;border-bottom:1px solid var(--line)}
+.progress-in{max-width:880px;margin:0 auto;padding:0 20px}
+.pbar{height:8px;background:#dde5f0;border-radius:10px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#f77f00,#d62828);border-radius:10px;transition:width .35s}
+.pmeta{display:flex;justify-content:space-between;margin-top:7px;font-size:14.5px;font-weight:600;color:var(--ink2)}
+.pmeta-r{display:flex;gap:6px}
+#ptime{color:var(--teal-d);font-variant-numeric:tabular-nums}
+
+.step{display:none}.step.active{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.stage-badge{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:800;letter-spacing:.4px;
+  text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:14px}
+.sb-1{background:#e6eef3;color:#00304a}.sb-2{background:#fde0e0;color:#a61c1c}.sb-3{background:#fef9c3;color:#a16207}.sb-4{background:#ffe8cc;color:#b35a00}
+.q-title{font-size:25px;font-weight:700;line-height:1.35;margin-bottom:6px}
+.q-sub{font-size:18px;color:var(--ink2);margin-bottom:20px}
+
+/* likert options */
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;align-items:center;gap:13px;padding:11px 15px;border:1.5px solid var(--line);border-radius:11px;cursor:pointer;transition:.16s;background:#fff}
+.opt:hover{border-color:#bcccdf;background:#fafcff}
+.opt.sel{border-color:var(--teal);background:#fff4f2}
+.opt .dot{width:22px;height:22px;border-radius:50%;border:2px solid #cbd5e1;flex:none;display:grid;place-items:center;transition:.16s}
+.opt.sel .dot{border-color:var(--teal);background:var(--teal)}
+.opt.sel .dot::after{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
+.opt .lbl{font-size:19px;font-weight:500}
+.opt .lbl small{display:block;font-size:14.5px;color:var(--ink3);font-weight:400}
+
+/* likert scale row */
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:6px}
+.scale-anchor{display:none;justify-content:space-between;font-size:13px;font-weight:600;color:var(--ink3);margin-bottom:8px}
+.scale .sc{text-align:center;padding:14px 6px;border:1.5px solid var(--line);border-radius:11px;cursor:pointer;transition:.16s;background:#fff}
+.scale .sc:hover{border-color:#bcccdf}
+.scale .sc.sel{border-color:var(--teal);background:#fff4f2}
+.scale .sc b{font-size:25px;font-weight:800;color:var(--ink);display:block}
+.scale .sc.sel b{color:var(--teal)}
+.scale .sc small{font-size:12.5px;color:var(--ink3);font-weight:600;line-height:1.2;display:block;margin-top:3px}
+
+.nav-btns{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
+.btn{padding:13px 26px;border-radius:11px;font-family:var(--font);font-size:17.5px;font-weight:700;cursor:pointer;border:0;transition:.18s}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:var(--ink2)}
+.btn-prev:hover{border-color:var(--ink3)}
+.btn-next{background:var(--teal);color:#fff;margin-left:auto}
+.btn-next:hover{background:#a61c1c}
+.btn-next:disabled{background:#cbd5e1;cursor:not-allowed}
+.btn-big{display:block;width:100%;background:var(--teal);color:#fff;padding:15px;font-size:18.5px;border-radius:12px;margin-top:8px}
+.btn-big:hover{background:#a61c1c}
+
+/* intro list */
+.intro-steps{display:grid;gap:12px;margin:20px 0}
+.info-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 4px}
+.info-strip .is{text-align:center;background:var(--bg);border-radius:12px;padding:13px 6px}
+.info-strip .is-n{font-size:27.5px;font-weight:800;color:var(--teal-d);line-height:1}
+.info-strip .is-l{font-size:14px;color:var(--ink2);font-weight:600;margin-top:4px}
+.istep{display:flex;gap:14px;padding:15px;background:var(--bg);border-radius:12px;align-items:flex-start}
+.istep .n{width:30px;height:30px;border-radius:9px;color:#fff;font-weight:800;display:grid;place-items:center;flex:none;font-size:17px}
+.istep h4{font-size:19px;font-weight:700;margin-bottom:2px}
+.istep p{font-size:17.5px;color:var(--ink2)}
+.form-row{margin-bottom:16px}
+.form-row label{display:block;font-size:17.5px;font-weight:700;color:var(--ink2);margin-bottom:6px}
+.form-row input,.form-row select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font);font-size:18.5px;background:#fff;color:var(--ink)}
+.form-row input:focus,.form-row select:focus{outline:none;border-color:var(--teal)}
+
+/* skill question */
+.skill-note{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 14px;font-size:14.5px;color:#854d0e;margin-bottom:14px;display:flex;gap:8px;line-height:1.4}
+.confidence-row{margin-top:14px;padding-top:13px;border-top:1px dashed var(--line)}
+.confidence-row .cq{font-size:15px;font-weight:600;color:var(--ink2);margin-bottom:8px}
+.conf-opts{display:flex;gap:8px}
+.conf-opts .co{flex:1;text-align:center;padding:9px;border:1.5px solid var(--line);border-radius:10px;cursor:pointer;font-size:15px;font-weight:600;transition:.16s}
+.conf-opts .co.sel{border-color:#f77f00;background:#fff4e6;color:#b35a00}
+
+/* RESULTS */
+.result-hero{text-align:center;padding:10px 0 6px}
+.result-hero .rname{font-size:17px;color:var(--ink2);font-weight:600}
+.result-hero .rtime{font-size:15px;color:var(--teal-d);font-weight:600;margin-top:6px}
+.match-badge{display:inline-block;margin:14px 0;padding:8px 20px;border-radius:30px;font-size:17px;font-weight:800;color:#fff}
+.konsen-card{border-radius:14px;padding:22px;color:#fff;margin:18px 0;position:relative;overflow:hidden}
+.konsen-card .kc-label{font-size:14px;font-weight:700;letter-spacing:.5px;opacity:.9;text-transform:uppercase}
+.konsen-card h3{font-size:29px;font-weight:800;margin:4px 0 8px}
+.konsen-card p{font-size:17.5px;opacity:.95;max-width:90%}
+.konsen-card .pl-link{margin-top:12px;font-size:14.5px;font-weight:700;background:rgba(255,255,255,.2);display:inline-block;padding:5px 12px;border-radius:20px}
+
+.bars{margin:8px 0}
+.bar-row{margin-bottom:13px}
+.bar-row .bl{display:flex;justify-content:space-between;font-size:17px;font-weight:600;margin-bottom:5px}
+.bar-row .bl .pct{color:var(--ink3)}
+.bar-track{height:11px;background:#eef2f8;border-radius:8px;overflow:hidden}
+.bar-fill{height:100%;border-radius:8px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+
+.section-title{font-size:20px;font-weight:800;color:var(--navy);margin:24px 0 12px;display:flex;align-items:center;gap:9px}
+.jobs{display:grid;gap:9px}
+.job{display:flex;gap:12px;padding:13px 15px;background:var(--bg);border-radius:11px;align-items:flex-start;border-left:3px solid var(--jc)}
+.job .ji{font-size:21.5px;flex:none}
+.job h4{font-size:17.5px;font-weight:700;margin-bottom:2px}
+.job p{font-size:16px;color:var(--ink2)}
+
+.gap-card{border-radius:12px;padding:18px;margin:16px 0;border:1px solid}
+.gap-good{background:#fff7ed;border-color:#fed7aa}
+.gap-warn{background:#fffbeb;border-color:#fde68a}
+.gap-card h4{font-size:17px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.gap-good h4{color:#b45309}.gap-warn h4{color:#a16207}
+.gap-card p{font-size:15.5px;color:var(--ink2)}
+
+.mitra-rec{display:grid;gap:10px;margin-top:4px}
+.mrec{display:flex;gap:12px;padding:14px 16px;background:#fff;border:1px solid var(--line);border-radius:12px;align-items:center;border-left:4px solid var(--mc)}
+.mrec .mi{width:40px;height:40px;border-radius:10px;background:var(--mc);color:#fff;font-weight:800;display:grid;place-items:center;flex:none;font-size:18px}
+.mrec h4{font-size:18px;font-weight:700}
+.mrec p{font-size:15.5px;color:var(--ink3)}
+.mrec .tag{margin-left:auto;font-size:12.5px;font-weight:700;padding:3px 9px;border-radius:20px;background:#f1f5f9;color:var(--ink2);flex:none}
+
+.disclaimer{background:linear-gradient(135deg,#fef9e7,#fffdf5);border:1px solid #f5e6a8;border-radius:12px;padding:16px 18px;font-size:17.5px;color:#854d0e;margin-top:20px}
+.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.actions .btn{flex:1;min-width:140px;text-align:center}
+.btn-out{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+
+footer{background:var(--navy);color:#f2c2aa;text-align:center;padding:22px;font-size:14.5px;margin-top:30px}
+
+/* ===== TABLET ===== */
+@media(max-width:680px){
+  .card{padding:20px 18px}
+  .hero-in{padding:36px 0 30px}
+  .konsen-card h3{font-size:25px}
+  .method span{font-size:13px;padding:5px 10px}
+}
+/* ===== PHONE ===== */
+@media(max-width:560px){
+  .wrap{padding:0 14px}
+  .nav-in{padding:11px 14px}
+  .nav-in b{font-size:14.5px}
+  .hero h1{font-size:29px}
+  .hero p{font-size:16px}
+  .card{padding:18px 15px;margin:16px 0;border-radius:14px}
+  .q-title{font-size:20.5px}
+  .q-sub{font-size:15.5px;margin-bottom:16px}
+  /* Likert: keep 5 across but bigger tap target, hide labels */
+  .scale{gap:6px}
+  .scale .sc small{display:none}
+  .scale .sc{padding:16px 0}
+  .scale .sc b{font-size:24px}
+  .scale-anchor{display:flex}
+  /* skill options: roomier */
+  .opt{padding:13px 13px;gap:11px}
+  .opt .lbl{font-size:17px}
+  .conf-opts{gap:7px}
+  .conf-opts .co{padding:12px 6px;font-size:14.5px}
+  /* nav buttons stack-friendly */
+  .nav-btns{gap:9px}
+  .btn{padding:13px 18px;font-size:17px}
+  .btn-prev{padding:13px 16px}
+  /* results */
+  .konsen-card{padding:18px 16px}
+  .konsen-card h3{font-size:24px}
+  .konsen-card p{max-width:100%;font-size:15.5px}
+  .konsen-card .pl-link{display:inline-block;margin:6px 6px 0 0}
+  .section-title{font-size:17.5px;margin:20px 0 10px}
+  .bar-row .bl{font-size:15px}
+  .job{padding:12px 13px;gap:10px}
+  .job h4{font-size:15.5px}.job p{font-size:14.5px}
+  .mrec{padding:12px 13px;gap:10px}
+  .mrec .mi{width:36px;height:36px;font-size:17px}
+  .mrec h4{font-size:15.5px}
+  .mrec .tag{font-size:12px;padding:3px 7px}
+  .actions{flex-direction:column;gap:9px}
+  .actions .btn{width:100%}
+  .istep{padding:13px}
+  .istep h4{font-size:17px}
+  .istep p{font-size:15px}
+  .stage-badge{font-size:13px}
+  .info-strip{grid-template-columns:repeat(2,1fr)}
+  .hero-logo{height:64px}
+  .uinlogo{height:30px}
+}
+/* very small phones */
+@media(max-width:360px){
+  .scale .sc b{font-size:21.5px}
+  .scale .sc{padding:14px 0}
+  .hero h1{font-size:26.5px}
+}
+@media print{
+  /* force browsers to print background colors & gradients exactly like on screen */
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
+  @page{margin:10mm}
+  nav,.progress-wrap,.actions,.nav-btns,.hero,footer{display:none!important}
+  body{background:#fff}
+  .card{box-shadow:none!important;border:1px solid #d8e0ec!important;break-inside:avoid;margin:0!important}
+  .konsen-card,.bar-fill,.job,.mrec,.gap-card,.stage-badge,.match-badge,.result-hero .stage-badge{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .section-title{break-after:avoid}
+  .bar-row,.job,.mrec,.gap-card{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div style="background:#fff;border-bottom:1px solid #e4e9f0">
+  <div style="max-width:880px;margin:0 auto;padding:11px 20px">
+    <a href="https://febi.uinsalatiga.ac.id/bd/magang/" style="display:inline-flex;align-items:center;gap:7px;color:#d62828;font-weight:700;font-size:15.5px;text-decoration:none;font-family:'Outfit',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Arial,sans-serif">← Kembali ke Pusat Magang</a>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="wrap hero-in">
+    <span class="tag">● Internship Readiness & Fit Assessment · Selaras 3 Peminatan TA</span>
+    <h1>Temukan <span class="y">Peminatan & Bidang Magang</span><br>yang Paling Cocok Untukmu</h1>
+    <p>Asesmen singkat untuk mengenali minat, kemampuan, dan kesiapanmu, lalu memetakannya ke salah satu dari <b>3 peminatan Tugas Akhir</b> beserta rekomendasi bidang magang, jenis pekerjaan, dan mitra.</p>
+    <div class="method">
+      <span>🧭 Minat (RIASEC)</span><span>💪 Keyakinan diri</span><span>✅ Uji kemampuan</span><span>🎯 Rekomendasi</span>
+    </div>
+  </div>
+</div>
+
+<div class="progress-wrap" id="progressWrap" style="display:none">
+  <div class="progress-in">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="pmeta"><span id="pstage">Tahap 1: Minat</span><span class="pmeta-r"><span id="ptime">⏱ 0:00</span> · <span id="pnum">0 / 0</span></span></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- INTRO -->
+  <div class="step active card" id="intro">
+    <div class="stage-badge sb-1">📋 Sebelum mulai</div>
+    <h2 style="font-size:26.5px;font-weight:800;margin-bottom:6px">Bagaimana asesmen ini bekerja</h2>
+    <p style="font-size:19px;color:var(--ink2)">Dirancang dari kerangka yang teruji: teori minat karier <b>Holland (RIASEC)</b>, <b>Skills Confidence Inventory</b> (efikasi diri), serta <b>uji kemampuan objektif</b> untuk memeriksa kesesuaian antara keyakinan dan kemampuan nyata. Hasilnya diarahkan ke <b>3 peminatan Tugas Akhir Prodi</b>: Pemasaran Digital, Kewirausahaan Digital, dan Analisis Bisnis Digital.</p>
+    <div class="info-strip">
+      <div class="is"><div class="is-n">30</div><div class="is-l">total soal</div></div>
+      <div class="is"><div class="is-n">±8–10</div><div class="is-l">menit</div></div>
+      <div class="is"><div class="is-n">3</div><div class="is-l">peminatan</div></div>
+      <div class="is"><div class="is-n">⏱</div><div class="is-l">ada timer</div></div>
+    </div>
+    <div class="intro-steps">
+      <div class="istep"><div class="n" style="background:var(--blue)">1</div><div><h4>Minat &amp; ketertarikan</h4><p>Aktivitas seperti apa yang membuatmu bersemangat, tanpa benar/salah.</p></div></div>
+      <div class="istep"><div class="n" style="background:var(--teal)">2</div><div><h4>Keyakinan diri (self-efficacy)</h4><p>Seberapa yakin kamu bisa melakukan tugas-tugas tertentu di dunia kerja digital.</p></div></div>
+      <div class="istep"><div class="n" style="background:var(--orange)">3</div><div><h4>Uji kemampuan singkat</h4><p>Beberapa soal untuk memverifikasi pemahamanmu, agar rekomendasi benar-benar akurat.</p></div></div>
+      <div class="istep"><div class="n" style="background:var(--purple)">4</div><div><h4>Hasil &amp; rekomendasi</h4><p>Peminatan TA, bidang magang, daftar pekerjaan yang bisa kamu lakukan, dan mitra yang cocok.</p></div></div>
+    </div>
+    <div class="form-row"><label>Nama (opsional, untuk personalisasi hasil)</label><input id="uname" type="text" placeholder="Nama kamu…"></div>
+    <div class="form-row"><label>Semester saat ini</label>
+      <select id="usem"><option value="">Pilih…</option><option>Semester 1–2</option><option>Semester 3–4</option><option>Semester 5–6</option><option>Semester 7–8</option></select></div>
+    <button class="btn btn-big" onclick="startAssessment()">Mulai Asesmen →</button>
+    <div class="disclaimer" style="margin-top:18px"><b>Catatan:</b> Hasil bersifat indikatif untuk membantu eksplorasi diri, bukan vonis. Minat &amp; kemampuan bisa tumbuh; gunakan hasil ini sebagai titik awal diskusi dengan dosen pembimbing dalam memilih peminatan TA &amp; mitra magang.</div>
+  </div>
+
+  <!-- QUESTION CONTAINER -->
+  <div class="step" id="qstep">
+    <div class="card qcard">
+      <div id="qcontent"></div>
+      <div class="nav-btns">
+        <button class="btn btn-prev" id="btnPrev" onclick="prevQ()">← Kembali</button>
+        <button class="btn btn-next" id="btnNext" onclick="nextQ()" disabled>Lanjut →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="step" id="results"></div>
+
+</div>
+
+
+<script>
+
+/* ============ FRAMEWORK & DATA ============ */
+/* 3 peminatan Tugas Akhir (sesuai Pedoman TA Prodi) */
+const JALUR={
+ pemasaran:{key:'pemasaran',name:'Pemasaran Digital',color:'#f77f00',
+   cpl:'CPL inti 5 & 9 + CPL7',
+   konsen:'Peminatan Pemasaran Digital',
+   desc:'Kamu condong ke komunikasi, kreativitas, dan memengaruhi audiens. Cocok mengelola kampanye, konten, brand, serta kanal digital & multimedia.',
+   riasec:['A','E'],
+   jobs:[['📣','Social Media & Content Officer','Kelola kalender konten, copywriting, desain feed, jadwal posting, balas engagement, baca insight.'],
+         ['🎯','Performance / Ads Intern','Setup & optimasi Meta/Google/TikTok Ads, riset audiens, laporan konversi.'],
+         ['🎨','Creative / Graphic & Video','Desain poster & materi promosi, produksi/edit video pendek, jaga konsistensi brand.'],
+         ['✍️','SEO & Copywriter','Tulis artikel SEO, caption, skrip video, riset kata kunci.']],
+   ta:'Project: kampanye/konten terukur · Skripsi: riset perilaku konsumen digital'},
+ wirausaha:{key:'wirausaha',name:'Kewirausahaan Digital',color:'#d62828',
+   cpl:'CPL inti 5 & 9 + CPL6',
+   konsen:'Peminatan Kewirausahaan Digital',
+   desc:'Kamu berani ambil inisiatif, suka peluang, dan membangun sesuatu dari nol. Cocok di startup, e-commerce, dan pengembangan bisnis.',
+   riasec:['E','S'],
+   jobs:[['🚀','Business Development Intern','Riset pasar, pemetaan mitra, validasi ide, susun proposal kerja sama.'],
+         ['🛒','E-Commerce / Marketplace Officer','Kelola toko, optimasi listing, strategi promo, layanan pelanggan, live commerce.'],
+         ['💡','Product / Project Assistant','Bantu rencana produk, koordinasi tim, milestone tracking, riset kompetitor.'],
+         ['🤝','Partnership & Community','Kelola komunitas, business matching, event, kemitraan UMKM.']],
+   ta:'Project: validasi usaha/produk (MVP) · Skripsi: model bisnis & adopsi'},
+ analisis:{key:'analisis',name:'Analisis Bisnis Digital',color:'#00304a',
+   cpl:'CPL inti 5 & 9 + CPL8, CPL10',
+   konsen:'Peminatan Analisis Bisnis Digital',
+   desc:'Kamu teliti, suka pola, angka, dan sistem. Cocok di tim data & riset, serta pengembangan sistem/produk digital.',
+   riasec:['I','C'],
+   jobs:[['📊','Data / Business Analyst','Bersihkan & olah data, buat dashboard, analisis tren, visualisasi untuk keputusan.'],
+         ['🔍','Market & Business Research','Riset pasar, survei, analisis kompetitor, susun insight & laporan.'],
+         ['💻','Web / App / System Support','Bantu bangun & perbaiki fitur web/aplikasi, kelola basis data, integrasi & dokumentasi.'],
+         ['🏛️','Statistik & Riset (BI/BPS)','Validasi & tabulasi data, visualisasi statistik, policy/briefing.']],
+   ta:'Project: dashboard/sistem/analisis terapan · Skripsi: riset berbasis data'},
+};
+
+// RIASEC interest items (Tahap 1), 12 item, 2 per tipe, skala 1-5
+const RIASEC_ITEMS=[
+ {t:'R',q:'Merakit, memperbaiki, atau mengotak-atik perangkat/sistem agar berfungsi.'},
+ {t:'R',q:'Bekerja dengan hal yang konkret dan praktis daripada teori abstrak.'},
+ {t:'I',q:'Menganalisis data atau memecahkan teka-teki untuk menemukan jawaban.'},
+ {t:'I',q:'Mencari tahu "mengapa" sesuatu terjadi lewat riset & observasi.'},
+ {t:'A',q:'Membuat sesuatu yang kreatif: desain, tulisan, video, atau konten.'},
+ {t:'A',q:'Mengekspresikan ide dengan cara yang orisinal dan estetis.'},
+ {t:'S',q:'Membantu, mengajar, atau melayani orang lain.'},
+ {t:'S',q:'Bekerja dalam tim dan membangun hubungan baik dengan orang.'},
+ {t:'E',q:'Memimpin, membujuk, atau menjual ide/produk ke orang lain.'},
+ {t:'E',q:'Mengambil inisiatif memulai proyek atau usaha baru.'},
+ {t:'C',q:'Menata data, dokumen, atau jadwal secara rapi dan sistematis.'},
+ {t:'C',q:'Mengikuti prosedur yang jelas dan memastikan detail akurat.'},
+];
+const RIASEC_NAMES={R:'Realistic (praktis)',I:'Investigative (analitis)',A:'Artistic (kreatif)',S:'Social (sosial)',E:'Enterprising (wirausaha)',C:'Conventional (terstruktur)'};
+
+// Self-efficacy items (Tahap 2), keyakinan per peminatan, skala 1-5 (9 item, 3 per peminatan)
+const EFF_ITEMS=[
+ {j:'pemasaran',q:'Saya yakin bisa membuat konten media sosial yang menarik & terjadwal, lalu membaca insight-nya.'},
+ {j:'pemasaran',q:'Saya yakin bisa menyusun & mengoptimasi kampanye iklan digital sederhana.'},
+ {j:'pemasaran',q:'Saya yakin bisa mendesain poster/feed atau video pendek yang konsisten dengan brand.'},
+ {j:'wirausaha',q:'Saya yakin bisa menyusun ide bisnis dan menawarkannya ke calon mitra/pelanggan.'},
+ {j:'wirausaha',q:'Saya yakin bisa mengelola toko online beserta strategi promosinya.'},
+ {j:'wirausaha',q:'Saya yakin bisa memimpin inisiatif/proyek kecil dari ide sampai berjalan.'},
+ {j:'analisis',q:'Saya yakin bisa mengolah data di spreadsheet, menemukan pola, dan membuat grafik yang tepat.'},
+ {j:'analisis',q:'Saya yakin bisa menyusun laporan/dashboard yang mudah dibaca untuk pengambilan keputusan.'},
+ {j:'analisis',q:'Saya yakin bisa membuat atau memperbaiki halaman web/fitur aplikasi sederhana.'},
+];
+
+// Skill-check (Tahap 3), soal objektif + confidence rating (9 item, 3 per peminatan)
+const SKILL_ITEMS=[
+ // PEMASARAN DIGITAL
+ {j:'pemasaran',q:'Dalam digital marketing, "CTR" (Click-Through Rate) paling tepat berarti…',
+  opts:['Jumlah total orang yang melihat iklan','Persentase orang yang mengeklik dibanding yang melihat','Biaya per satu klik iklan','Jumlah produk yang terjual'],ans:1},
+ {j:'pemasaran',q:'Toko ingin mengukur berapa banyak pengunjung yang akhirnya membeli. Metrik paling tepat adalah…',
+  opts:['Conversion rate','Jumlah follower','Jumlah like','Durasi iklan'],ans:0},
+ {j:'pemasaran',q:'Pada konten video pendek (Reels/TikTok), 3 detik pertama paling penting untuk…',
+  opts:['Menampilkan logo perusahaan','Menarik perhatian agar penonton tidak scroll','Menyebut semua fitur produk','Menampilkan musik panjang'],ans:1},
+ // KEWIRAUSAHAAN DIGITAL
+ {j:'wirausaha',q:'"MVP" (Minimum Viable Product) dalam startup berarti…',
+  opts:['Produk paling mahal & lengkap','Versi paling sederhana yang sudah bisa diuji ke pengguna','Laporan keuangan tahunan','Strategi iklan berbayar'],ans:1},
+ {j:'wirausaha',q:'Dalam Business Model Canvas, "Value Proposition" menjelaskan…',
+  opts:['Siapa saja pelanggan kita','Nilai/manfaat unik yang ditawarkan ke pelanggan','Berapa biaya operasional','Saluran distribusi produk'],ans:1},
+ {j:'wirausaha',q:'Harga jual satu produk Rp20.000 dan biaya pokoknya Rp15.000. Margin kotor per produk adalah…',
+  opts:['Rp5.000','Rp15.000','Rp20.000','Rp35.000'],ans:0},
+ // ANALISIS BISNIS DIGITAL
+ {j:'analisis',q:'Untuk membandingkan proporsi/komposisi 5 kategori penjualan, grafik paling sesuai adalah…',
+  opts:['Line chart (garis)','Pie/donut atau bar chart','Scatter plot','Tidak perlu grafik'],ans:1},
+ {j:'analisis',q:'Jika data punya nilai sangat ekstrem (outlier), ukuran pemusatan yang lebih representatif adalah…',
+  opts:['Mean (rata-rata)','Median (nilai tengah)','Jumlah total','Nilai terbesar'],ans:1},
+ {j:'analisis',q:'Dalam pengembangan web, HTML berperan sebagai…',
+  opts:['Mengatur logika & interaksi','Struktur/kerangka konten halaman','Server hosting','Basis data penyimpanan'],ans:1},
+];
+
+// Mitra rekomendasi per peminatan (ringkas, dari direktori magang)
+const MITRA_REC={
+ pemasaran:[['RW','Rumahweb Indonesia','Jogja · SEO & Digital Marketing','Offline'],['SI','Seven Inc / Magangjogja','Jogja · Digital marketing & sosmed','Offline'],['SO','Sooca Design','Semarang/Solo · Desain grafis & kreatif','Hybrid'],['WM','Web Media Solusi Digital','Salatiga · Web & digital marketing','Offline']],
+ wirausaha:[['ST','Solo Technopark','Solo · Inkubasi & startup','Offline'],['JD','Jogja Digital Valley','Jogja · Ekosistem startup','Hybrid'],['GA','GAMELAB Indonesia','Salatiga · Business & partnership','Hybrid'],['BA','BISA AI Academy','Online · Business development','Online']],
+ analisis:[['BI','Bank Indonesia (KPw)','Multi · Riset & data analytics','Offline'],['BP','BPS Daerah','Multi · Pengolahan & diseminasi data','Offline'],['DK','Diskominfo Semarang','Semarang · SPBE, statistik & data','Offline'],['TA','Techarea','Semarang · Software & data','Hybrid']],
+};
+
+/* ============ STATE & FLOW ============ */
+let QUEUE=[];   // ordered list of all questions
+let answers={}; // id -> value
+let confAnswers={}; // skill confidence
+let idx=0;
+let user={name:'',sem:''};
+let startTime=0,timerInt=null,elapsedSec=0;
+function fmtTime(s){const m=Math.floor(s/60),ss=s%60;return m+':'+String(ss).padStart(2,'0');}
+function startTimer(){startTime=Date.now();timerInt=setInterval(()=>{
+  elapsedSec=Math.floor((Date.now()-startTime)/1000);
+  const el=document.getElementById('ptime');if(el)el.textContent='⏱ '+fmtTime(elapsedSec);
+},1000);}
+function stopTimer(){if(timerInt){clearInterval(timerInt);timerInt=null;}}
+
+function startAssessment(){
+  user.name=document.getElementById('uname').value.trim();
+  user.sem=document.getElementById('usem').value;
+  // build queue
+  QUEUE=[];
+  RIASEC_ITEMS.forEach((it,i)=>QUEUE.push({stage:1,type:'likert',id:'r'+i,...it}));
+  EFF_ITEMS.forEach((it,i)=>QUEUE.push({stage:2,type:'likert',id:'e'+i,...it}));
+  SKILL_ITEMS.forEach((it,i)=>QUEUE.push({stage:3,type:'skill',id:'s'+i,...it}));
+  idx=0;
+  document.getElementById('intro').classList.remove('active');
+  document.getElementById('qstep').classList.add('active');
+  document.getElementById('progressWrap').style.display='block';
+  startTimer();
+  renderQ();
+  setTimeout(()=>{
+    const pw=document.getElementById('progressWrap');
+    if(pw){const y=pw.getBoundingClientRect().top+window.pageYOffset;window.scrollTo({top:y,behavior:'smooth'});}
+  },80);
+}
+
+const STAGE_NAMES={1:'Tahap 1: Minat',2:'Tahap 2: Keyakinan diri',3:'Tahap 3: Uji kemampuan'};
+const STAGE_CLS={1:'sb-1',2:'sb-2',3:'sb-3'};
+const LIKERT=[['1','Sangat tidak'],['2','Tidak'],['3','Netral'],['4','Setuju'],['5','Sangat setuju']];
+
+function renderQ(){
+  const q=QUEUE[idx];
+  const c=document.getElementById('qcontent');
+  // progress
+  document.getElementById('pfill').style.width=((idx)/QUEUE.length*100)+'%';
+  document.getElementById('pstage').textContent=STAGE_NAMES[q.stage];
+  document.getElementById('pnum').textContent='Soal '+(idx+1)+'/'+QUEUE.length;
+
+  let html=`<div class="stage-badge ${STAGE_CLS[q.stage]}">${q.stage===1?'🧭 Minat & ketertarikan':q.stage===2?'💪 Keyakinan diri':'✅ Uji kemampuan'}</div>`;
+
+  if(q.type==='likert'){
+    const sub=q.stage===1?'Seberapa sesuai pernyataan ini dengan dirimu?':'Seberapa setuju kamu dengan pernyataan ini?';
+    html+=`<div class="q-title">${q.q}</div><div class="q-sub">${sub}</div>
+      <div class="scale-anchor"><span>← ${LIKERT[0][1]}</span><span>${LIKERT[4][1]} →</span></div>
+      <div class="scale">${LIKERT.map(([v,l])=>`<div class="sc${answers[q.id]==v?' sel':''}" onclick="pickLikert('${q.id}','${v}')"><b>${v}</b><small>${l}</small></div>`).join('')}</div>`;
+  } else {
+    html+=`<div class="skill-note">💡 Pilih jawaban yang menurutmu benar. Tidak apa kalau ragu, ini membantu kami mengukur akurasi, bukan menghakimi.</div>
+      <div class="q-title">${q.q}</div>
+      <div class="opts" style="margin-top:10px">${q.opts.map((o,i)=>`<div class="opt${answers[q.id]===i?' sel':''}" onclick="pickSkill('${q.id}',${i})"><div class="dot"></div><div class="lbl">${o}</div></div>`).join('')}</div>
+      <div class="confidence-row"><div class="cq">Seberapa yakin kamu dengan jawaban di atas?</div>
+        <div class="conf-opts">${['Menebak','Agak yakin','Sangat yakin'].map((l,i)=>`<div class="co${confAnswers[q.id]===i?' sel':''}" onclick="pickConf('${q.id}',${i})">${l}</div>`).join('')}</div></div>`;
+  }
+  c.innerHTML=html;
+  document.getElementById('btnPrev').style.visibility=idx===0?'hidden':'visible';
+  const answered=q.type==='likert'?answers[q.id]!=null:(answers[q.id]!=null&&confAnswers[q.id]!=null);
+  document.getElementById('btnNext').disabled=!answered;
+  document.getElementById('btnNext').textContent=idx===QUEUE.length-1?'Lihat Hasil →':'Lanjut →';
+}
+function pickLikert(id,v){answers[id]=v;renderQ();}
+function pickSkill(id,i){answers[id]=i;renderQ();}
+function pickConf(id,i){confAnswers[id]=i;renderQ();}
+
+function scrollToCard(){
+  const pw=document.getElementById('progressWrap');
+  const card=document.querySelector('#qstep .card');
+  if(!pw||!card)return;
+  const barTop=pw.getBoundingClientRect().top;
+  const cardBottom=card.getBoundingClientRect().bottom;
+  if(barTop>2||cardBottom>window.innerHeight+40){
+    const y=pw.getBoundingClientRect().top+window.pageYOffset;
+    window.scrollTo({top:y,behavior:'smooth'});
+  }
+}
+function nextQ(){
+  if(idx<QUEUE.length-1){idx++;renderQ();scrollToCard();}
+  else showResults();
+}
+function prevQ(){if(idx>0){idx--;renderQ();scrollToCard();}}
+
+/* ============ SCORING ============ */
+function computeResults(){
+  // RIASEC scores
+  const ria={R:0,I:0,A:0,S:0,E:0,C:0};
+  RIASEC_ITEMS.forEach((it,i)=>{ria[it.t]+=(+answers['r'+i]||0);});
+  // normalize each type 0-100 (max 10 per type)
+  const riaPct={};Object.keys(ria).forEach(k=>riaPct[k]=Math.round(ria[k]/10*100));
+  // top holland code
+  const hollandTop=Object.entries(ria).sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>x[0]).join('');
+
+  // self-efficacy per peminatan (max 5 per item, jumlah item dinamis)
+  const eff={},effCnt={};Object.keys(JALUR).forEach(j=>{eff[j]=0;effCnt[j]=0;});
+  EFF_ITEMS.forEach((it,i)=>{eff[it.j]+=(+answers['e'+i]||0);effCnt[it.j]++;});
+
+  // skill score per peminatan
+  const skillByJ={},skillCntByJ={};Object.keys(JALUR).forEach(j=>{skillByJ[j]=0;skillCntByJ[j]=0;});
+  let totalCorrect=0,totalSkill=0,overconf=0,wellcal=0;
+  SKILL_ITEMS.forEach((it,i)=>{
+    const id='s'+i;const correct=answers[id]===it.ans;skillCntByJ[it.j]++;totalSkill++;
+    if(correct){skillByJ[it.j]++;totalCorrect++;}
+    const conf=confAnswers[id]; // 0 guess,1 agak,2 sangat
+    if(conf===2&&!correct)overconf++;
+    if((conf===2&&correct)||(conf===0&&!correct))wellcal++;
+  });
+
+  // combined fit per peminatan: interest(40%) + efficacy(35%) + skill(25%)
+  const fit={},skillPct={},effPct={};
+  Object.keys(JALUR).forEach(j=>{
+    const jr=JALUR[j].riasec; // riasec types for this peminatan
+    const interest=jr.reduce((s,t)=>s+riaPct[t],0)/jr.length; // 0-100
+    const efficacy=effCnt[j]?(eff[j]/(effCnt[j]*5)*100):60; // 0-100
+    const skill=skillCntByJ[j]?(skillByJ[j]/skillCntByJ[j]*100):60; // 0-100
+    skillPct[j]=Math.round(skill);effPct[j]=Math.round(efficacy);
+    fit[j]=Math.round(interest*0.40+efficacy*0.35+skill*0.25);
+  });
+  const ranked=Object.entries(fit).sort((a,b)=>b[1]-a[1]);
+  return {riaPct,hollandTop,eff,effPct,fit,ranked,totalCorrect,totalSkill,overconf,wellcal,skillByJ,skillCntByJ,skillPct};
+}
+
+function showResults(){
+  stopTimer();
+  elapsedSec=Math.floor((Date.now()-startTime)/1000);
+  document.getElementById('pfill').style.width='100%';
+  const R=computeResults();
+  const topKey=R.ranked[0][0];const J=JALUR[topKey];
+  const name=user.name?user.name+', ':'';
+  const jc=J.color;
+
+  // gap analysis (keyakinan vs kemampuan)
+  let gapHtml='';
+  if(R.overconf>=2){
+    gapHtml=`<div class="gap-card gap-warn"><h4>⚠️ Perhatikan kesenjangan keyakinan–kemampuan</h4>
+      <p>Di beberapa soal, kamu merasa "sangat yakin" tapi jawabannya kurang tepat (${R.overconf} kali). Ini wajar dan justru bagus diketahui sekarang, fokuskan magang untuk <b>memperkuat fondasi</b> sebelum mengambil peran yang menuntut keahlian itu. Skor uji kemampuan: ${R.totalCorrect}/${R.totalSkill}.</p></div>`;
+  } else if(R.totalCorrect>=R.totalSkill*0.7){
+    gapHtml=`<div class="gap-card gap-good"><h4>✅ Keyakinan & kemampuanmu cukup selaras</h4>
+      <p>Jawaban uji kemampuanmu solid (${R.totalCorrect}/${R.totalSkill}) dan sejalan dengan tingkat keyakinanmu. Ini modal bagus untuk langsung mengambil peran magang yang menantang di peminatan ini.</p></div>`;
+  } else {
+    gapHtml=`<div class="gap-card gap-good"><h4>🌱 Ruang untuk bertumbuh</h4>
+      <p>Skor uji kemampuan: ${R.totalCorrect}/${R.totalSkill}. Tidak masalah, magang justru tempat terbaik untuk belajar. Pilih mitra yang menyediakan bimbingan (mentor) agar kamu berkembang cepat.</p></div>`;
+  }
+
+  const mrec=MITRA_REC[topKey]||[];
+  const el=document.getElementById('results');
+  el.innerHTML=`
+    <div class="card">
+      <div class="result-hero">
+        <div class="stage-badge sb-4" style="margin:0 auto">🎯 Hasil Asesmenmu</div>
+        <h2 style="font-size:29px;font-weight:800;margin-top:12px">${name}ini peminatan yang paling cocok</h2>
+        <div class="rname">Kode Holland kamu: <b>${R.hollandTop}</b> · ${RIASEC_NAMES[R.hollandTop[0]].split(' ')[0]}-dominan</div>
+        <div class="rtime">⏱ Selesai dalam ${fmtTime(elapsedSec)} menit · ${QUEUE.length} pertanyaan</div>
+      </div>
+
+      <div class="konsen-card" style="background:linear-gradient(135deg,${jc},${shade(jc)})">
+        <div class="kc-label">Rekomendasi peminatan (selaras Tugas Akhir)</div>
+        <h3>${J.name}</h3>
+        <p>${J.desc}</p>
+        <span class="pl-link">🎓 ${J.cpl}</span>
+        <span class="pl-link" style="margin-left:6px">📘 ${J.ta}</span>
+      </div>
+
+      <div class="section-title">📊 Tingkat kecocokan 3 peminatan</div>
+      <div class="bars">
+        ${R.ranked.map(([k,v])=>`<div class="bar-row"><div class="bl"><span>${JALUR[k].name}</span><span class="pct">${v}%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="${v}" style="background:${JALUR[k].color}"></div></div></div>`).join('')}
+      </div>
+
+      <div class="section-title">💪 Peta kemampuan per peminatan (hasil uji skill)</div>
+      <div class="bars">
+        ${Object.keys(JALUR).map(k=>`<div class="bar-row"><div class="bl"><span>${JALUR[k].name}</span><span class="pct">${R.skillByJ[k]}/${R.skillCntByJ[k]} benar · ${R.skillPct[k]}%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="${R.skillPct[k]}" style="background:${JALUR[k].color}"></div></div></div>`).join('')}
+      </div>
+
+      <div class="section-title">🧭 Profil minat (RIASEC)</div>
+      <div class="bars">
+        ${Object.entries(R.riaPct).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="bar-row"><div class="bl"><span>${RIASEC_NAMES[k]}</span><span class="pct">${v}%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="${v}" style="background:var(--navy2)"></div></div></div>`).join('')}
+      </div>
+
+      ${gapHtml}
+
+      <div class="section-title">💼 Pekerjaan yang bisa kamu lakukan saat magang</div>
+      <div class="jobs">
+        ${J.jobs.map(j=>`<div class="job" style="--jc:${jc}"><div class="ji">${j[0]}</div><div><h4>${j[1]}</h4><p>${j[2]}</p></div></div>`).join('')}
+      </div>
+
+      <div class="section-title">🏢 Mitra magang yang cocok untukmu</div>
+      <div class="mitra-rec">
+        ${mrec.map(m=>`<div class="mrec" style="--mc:${jc}"><div class="mi">${m[0]}</div><div><h4>${m[1]}</h4><p>${m[2]}</p></div><span class="tag">${m[3]}</span></div>`).join('')}
+      </div>
+
+      <div class="disclaimer"><b>Ingat:</b> hasil ini indikatif untuk membantumu mengeksplorasi diri, bukan batasan. Kamu tetap bisa mencoba peminatan lain. Diskusikan dengan dosen pembimbing untuk memvalidasi peminatan TA & memilih mitra. Daftar mitra lengkap ada di direktori magang prodi.</div>
+
+      <div class="actions">
+        <button class="btn btn-out" onclick="window.print()">🖨️ Simpan / Cetak hasil</button>
+        <button class="btn btn-next" style="margin:0" onclick="restart()">🔄 Ulangi asesmen</button>
+      </div>
+    </div>`;
+  document.getElementById('qstep').classList.remove('active');
+  el.classList.add('active');
+  scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>document.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.dataset.w+'%'),120);
+}
+
+function shade(hex){ // darken for gradient
+  const n=parseInt(hex.slice(1),16);let r=(n>>16)-26,g=((n>>8)&255)-26,b=(n&255)-26;
+  r=Math.max(0,r);g=Math.max(0,g);b=Math.max(0,b);
+  return '#'+(r<<16|g<<8|b).toString(16).padStart(6,'0');
+}
+function restart(){
+  answers={};confAnswers={};idx=0;
+  stopTimer();elapsedSec=0;
+  const el=document.getElementById('ptime');if(el)el.textContent='⏱ 0:00';
+  document.getElementById('results').classList.remove('active');
+  document.getElementById('progressWrap').style.display='none';
+  document.getElementById('intro').classList.add('active');
+  scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
