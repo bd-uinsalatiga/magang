@@ -55,6 +55,8 @@ nav{position:sticky;top:0;z-index:60;background:rgba(140,18,32,.96);backdrop-fil
   font-weight:700;cursor:pointer;transition:.16s;white-space:nowrap}
 .fbtn:hover{border-color:var(--ink3)}
 .fbtn.active{color:#fff}
+.cat-select{display:none;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-family:var(--font);font-size:16px;font-weight:700;background:#fff;color:var(--ink)}
+.extra{display:flex;gap:7px;flex-wrap:wrap}
 
 .stats{margin-top:22px}
 .stat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
@@ -145,9 +147,11 @@ footer{background:var(--navy);color:#f5cdb8;margin-top:40px}
   .controls{position:static}
   .controls-in{flex-direction:column;align-items:stretch;gap:9px;padding:0 16px}
   .search{min-width:0}
-  /* filter jadi satu baris yang bisa digeser, bukan menumpuk tinggi */
-  .filters{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding-bottom:3px;gap:6px}
-  .fbtn{flex:none}
+  /* di HP: kategori pakai dropdown, bukan chip yang digeser */
+  .filters{display:none}
+  .cat-select{display:block;width:100%}
+  .extra{width:100%}
+  .extra .fbtn{flex:1;text-align:center}
   .sec-desc{margin-left:0}
   .hero-in{padding:32px 0 26px}
   .wrap{padding:0 16px}
@@ -190,7 +194,9 @@ footer{background:var(--navy);color:#f5cdb8;margin-top:40px}
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
       <input id="q" type="text" placeholder="Cari nama perusahaan, kota, atau bidang…" oninput="applyFilter()">
     </div>
+    <select id="catSelect" class="cat-select" aria-label="Filter kategori" onchange="setCategory(this.value)"></select>
     <div class="filters" id="filters"></div>
+    <div class="extra" id="extra"></div>
   </div>
 </div>
 
@@ -460,6 +466,8 @@ const PEMINATAN_TA=[
 let activeCat='all';
 let prioOnly=false;
 const filtersEl=document.getElementById('filters');
+const extraEl=document.getElementById('extra');
+const selEl=document.getElementById('catSelect');
 function jumpTo(el){
   if(!el)return;
   const c=document.querySelector('.controls');
@@ -468,24 +476,37 @@ function jumpTo(el){
   window.scrollTo({top:Math.max(0,y),behavior:'smooth'});
 }
 function scrollToResults(){jumpTo(document.getElementById('sections'));}
+function setCategory(id){
+  activeCat=id;
+  document.querySelectorAll('.fbtn[data-id]').forEach(x=>{
+    const on=x.dataset.id===id;
+    x.classList.toggle('active',on);
+    x.style.background=on?x.dataset.col:'';
+    x.style.borderColor=on?x.dataset.col:'';
+    x.style.color=on?'#fff':'';
+  });
+  if(selEl)selEl.value=id;
+  applyFilter();scrollToResults();
+}
+const CAT_LABEL={all:'Semua kategori',agensi:'Agensi Digital Marketing',tech:'Software House & Startup Tech',fintech:'Fintech & Perbankan Syariah',instansi:'Instansi, BUMN & E-Commerce',online:'Platform Magang Online'};
 [['all','Semua',C.slate],...CATS.map(c=>[c.id,c.name.split(' ').slice(0,2).join(' '),c.color])]
 .forEach(([id,label,col],i)=>{
   const b=document.createElement('button');b.className='fbtn'+(i===0?' active':'');b.textContent=label;b.dataset.col=col;b.dataset.id=id;
   if(i===0){b.style.background=col;b.style.borderColor=col;b.style.color='#fff';}
-  b.onclick=()=>{activeCat=id;document.querySelectorAll('.fbtn[data-id]').forEach(x=>{x.classList.remove('active');x.style.background='';x.style.borderColor='';x.style.color='';});
-    b.classList.add('active');b.style.background=col;b.style.borderColor=col;b.style.color='#fff';applyFilter();scrollToResults();};
+  b.onclick=()=>setCategory(id);
   filtersEl.appendChild(b);
+  const o=document.createElement('option');o.value=id;o.textContent=CAT_LABEL[id]||label;selEl.appendChild(o);
 });
 // Priority toggle
 const pb=document.createElement('button');pb.className='fbtn prio-toggle';pb.innerHTML='★ Rekomendasi';
 pb.onclick=()=>{prioOnly=!prioOnly;pb.classList.toggle('active',prioOnly);
   pb.style.background=prioOnly?'#fbbf24':'';pb.style.borderColor=prioOnly?'#fbbf24':'';pb.style.color=prioOnly?'#854d0e':'';applyFilter();scrollToResults();};
-filtersEl.appendChild(pb);
+extraEl.appendChild(pb);
 // Jump button: Divisi, Job Desk & Kaitan TA (Panduan section)
 const gd=document.createElement('button');gd.className='fbtn';gd.innerHTML='📚 Divisi & Job Desk';
 gd.style.borderColor='#f6cccc';gd.style.color='#d62828';
 gd.onclick=()=>jumpTo(document.getElementById('panduan'));
-filtersEl.appendChild(gd);
+extraEl.appendChild(gd);
 
 function mitraCard(m){
   const cat=CATS.find(c=>c.id===m.cat);const col=cat.color;
