@@ -141,9 +141,21 @@ footer{background:var(--navy);color:#f5cdb8;margin-top:40px}
   .grid{grid-template-columns:1fr}.info-grid{grid-template-columns:1fr}
 }
 @media(max-width:620px){
-  .nav-links{display:none;position:absolute;top:60px;left:0;right:0;background:var(--navy);flex-direction:column;padding:10px 16px 16px;gap:3px}
-  .nav-links.open{display:flex}.burger{display:block}
+  /* controls tidak lagi sticky di HP agar tidak menutupi konten */
+  .controls{position:static}
+  .controls-in{flex-direction:column;align-items:stretch;gap:9px;padding:0 16px}
+  .search{min-width:0}
+  /* filter jadi satu baris yang bisa digeser, bukan menumpuk tinggi */
+  .filters{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding-bottom:3px;gap:6px}
+  .fbtn{flex:none}
   .sec-desc{margin-left:0}
+  .hero-in{padding:32px 0 26px}
+  .wrap{padding:0 16px}
+  .sec-head{gap:10px}
+  .sec-ic{width:36px;height:36px;font-size:22px}
+  .mitra .mh{padding:15px 16px 0}
+  .mitra .mbody{padding:12px 16px 0}
+  .mfoot{padding:12px 16px}
 }
 </style>
 </head>
@@ -207,7 +219,7 @@ footer{background:var(--navy);color:#f5cdb8;margin-top:40px}
 </div>
 
 
-<button class="up" id="up" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button class="up" id="up" aria-label="Kembali ke atas" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <div class="toast" id="toast">Disalin</div>
 
 <script>
@@ -448,7 +460,14 @@ const PEMINATAN_TA=[
 let activeCat='all';
 let prioOnly=false;
 const filtersEl=document.getElementById('filters');
-function scrollToResults(){const el=document.getElementById('sections');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+function jumpTo(el){
+  if(!el)return;
+  const c=document.querySelector('.controls');
+  const off=(c&&getComputedStyle(c).position==='sticky')?c.offsetHeight+8:8;
+  const y=el.getBoundingClientRect().top+window.pageYOffset-off;
+  window.scrollTo({top:Math.max(0,y),behavior:'smooth'});
+}
+function scrollToResults(){jumpTo(document.getElementById('sections'));}
 [['all','Semua',C.slate],...CATS.map(c=>[c.id,c.name.split(' ').slice(0,2).join(' '),c.color])]
 .forEach(([id,label,col],i)=>{
   const b=document.createElement('button');b.className='fbtn'+(i===0?' active':'');b.textContent=label;b.dataset.col=col;b.dataset.id=id;
@@ -465,7 +484,7 @@ filtersEl.appendChild(pb);
 // Jump button: Divisi, Job Desk & Kaitan TA (Panduan section)
 const gd=document.createElement('button');gd.className='fbtn';gd.innerHTML='📚 Divisi & Job Desk';
 gd.style.borderColor='#f6cccc';gd.style.color='#d62828';
-gd.onclick=()=>{const el=document.getElementById('panduan');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});};
+gd.onclick=()=>jumpTo(document.getElementById('panduan'));
 filtersEl.appendChild(gd);
 
 function mitraCard(m){
